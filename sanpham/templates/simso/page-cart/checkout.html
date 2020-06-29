@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+Đặt hàng
+{% endblock %}
+
+{% block index %}
+   <article>
+        <section class="register_area p_100">
+            <div class="container">
+                <div class="register_inner">
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <div class="billing_details" style="text-align:center">
+                                <h1 class="reg_title">Thông tin đặt hàng</h1>
+                                <hr/>
+                                <h3 style="color:red;">{{Error}}</h3>
+                                <div class="billing_inner row" style="width:90%;text-align:left">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="name"><strong>Họ tên người nhận</strong><span style="color:red">*</span></label>
+                                            <input type="text" class="form-control" id="name" aria-describedby="name" name="HoTen" value="{{user.HoTen}}" required/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="address"><strong>Địa chỉ</strong><span style="color:red">*</span></label>
+                                            <input type="text" class="form-control" id="address" aria-describedby="address" name="DiaChi" value="{{user.DiaChi}}" required/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="email"><strong>Email</strong><span style="color:red">*</span></label>
+                                            <input type="email" class="form-control" id="email" aria-describedby="email" name="Email" value="{{user.email}}" required readonly/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="phone1"><strong>Số điện thoại người nhận</strong><span style="color:red">*</span></label>
+                                            <input type="tel" class="form-control" id="phone1" aria-describedby="phone" pattern="[0-9]{10:11}" 
+                                                name="SoDienThoai" value="{{user.SDT}}" required/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="col-lg-5">
+                            <div class="order_box_price" style="text-align:center">
+                                <h1 class="reg_title">Đơn đặt hàng của bạn</h1>
+                                <div class="payment_list">
+                                    <div class="price_single_cost">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <td><strong>Sim</strong></td>
+                                                    <td><strong>Giá</strong></td>
+                                                </tr>
+                                                {% for item in CTGHs %}
+                                                    <tr>
+                                                        <td>
+                                                            <h5><strong><font size="3">{{item.SP}}</font></strong></h5>
+                                                        </td>
+                                                        <td>
+                                                            <span><strong><font size="3">{{item.DonGia|intcomma }}₫</font></strong></span>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                                <tr>
+                                                    <td><strong><font size="3">Giao hàng</font></strong></td>
+                                                    <td><strong><font size="3">Miễn phí</font></strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong><font size="3">Tổng tiền</font></strong></td>
+                                                    <td><strong><font size="3">{{Cart_obj.TongTien|intcomma }}₫</font></strong></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <br/>
+                                    <div id="accordion" role="tablist" class="price_method" style="display:flex">
+                                        <div class="card" style="margin:10px 0px 0px 50px">
+                                            <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+                                                <div class="card-body">
+                                                    <form class="billing_inner row" method="post" action="" onsubmit="return set_value_for_input();">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" class="form-control" id="name1" aria-describedby="name" name="HoTen" value="" />
+                                                        <input type="hidden" class="form-control" id="address1" aria-describedby="address" name="DiaChi" value="" />                                                    
+                                                        <input type="hidden" class="form-control" id="phone2" aria-describedby="phone" name="SoDienThoai" value="" />
+                                                        <button type="submit" value="submit" class="btn btn-success" style="margin-left: 15px;">Thanh toán khi nhận hàng</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card" style="margin-left: 50px">
+                                            <div id="collapseTwo" class="collapse show" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion">
+                                                <div class="card-body">
+                                                    {% include 'pages/paypal.html' %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+   </article>
+<style>
+    .table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    .table, .table th, .table td {
+        text-align: center;
+        border: 1px solid black;
+    }
+    th {
+        padding: 2px;
+        height: 50%;
+    }
+    td {
+        padding: 2px;
+    }
+</style>
+<script>
+    function set_value_for_input()
+    {
+        var phoneno = /^\d{10,11}$/;
+
+        var name1 = document.getElementById('name').value;
+        var address = document.getElementById('address').value;
+        var phone = document.getElementById('phone1').value;
+
+        if(name1 == "" || address == ""  || phone == "")
+        {
+            alert("Vui lòng nhập đầy đủ thông tin");
+            return false;
+        }
+        else
+        {
+            if(phone.match(phoneno))
+            {
+                document.getElementById('name1').value = name1;
+                document.getElementById('address1').value = address;
+                document.getElementById('phone2').value = phone;
+                return true;
+            }
+            else
+            {
+                alert("Vui lòng nhập đúng định dạng số điện thoại");
+                return false;
+            }
+        }
+    }  
+</script>
+{% endblock  %}

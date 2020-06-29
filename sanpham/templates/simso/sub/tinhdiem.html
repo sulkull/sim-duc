@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block index %}
+
+{% load static %}
+{% load humanize %}
+<!---------Index -------------->
+<article>
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit" />
+</form>
+
+<div class="show-pp">
+    {% if pt in data %}
+        {{ pt.ngay }}
+    {% endif %}
+</div>
+
+
+</article>
+
+{% endblock %}
+

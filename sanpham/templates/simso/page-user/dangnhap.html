@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block index %}
+
+{% load static %}
+{% load humanize %}
+<article>
+    <div class="dangky">
+        <form action="" method="post">
+            {% csrf_token %}
+            {% if form.errors %}
+            <div class="error" style="margin: auto; margin-bottom:10px; color: red; text-align: center">
+                <strong>Tài khoản hoặc mật khẩu không đúng</strong>
+            </div>
+        {% endif %}
+
+            <table>
+            <tbody>
+                <tr>
+                    <th>
+                        <label for="id_username" style="margin: 0 20px 0 100px;">Tài khoản:</label>
+                    </th>
+                    <td>
+                        <input type="text" name="username" class="form-control" placeholder="Tài khoản" label="Tài khoản" maxlength="50" required="" id="id_username">
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="id_password" style="margin: 0 20px 0 100px;">Mật khẩu:</label>
+                    </th>
+                   <td>
+                        <input type="password" name="password" class="form-control" placeholder="Mật khẩu" required="" id="id_password">
+                   </td>
+                </tr>
+                <tr>
+                    <th>
+
+                    </th>
+                    <td>
+                         <input type="hidden" name="next" value="{% url 'user:thongtintaikhoan' %}" />
+                      <button type="submit" class="btn btn-primary" style="background:#007bff;border-color: #007bff;color: white"> Đăng nhập</button>
+                    </td>
+                </tr>
+            </tbody>
+            </table>
+
+        </form>
+    </div>
+</article>
+<style>
+.form-group {
+    margin-bottom: 1rem;
+}
+label {
+    display: inline-block;
+    margin-bottom: .5rem;
+}
+.form-control {
+    display: block;
+    width: 70%;
+    height: calc(1.5em + .75rem + 2px);
+  padding: 2px 45px 5px 15px;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+button, input {
+    overflow: visible;
+}
+
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    color: #212529;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+</style>
+
+
+{% endblock %}

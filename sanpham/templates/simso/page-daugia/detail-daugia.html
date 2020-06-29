@@ -1,0 +1,193 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+{% block index %}
+  <div class="section group" style=" background: #fff; border: 1px solid #ccc; ">
+    <div class="col span_5_of_12">
+        <div style="width: fit-content;margin: 10px auto;padding: 15px;">
+            <label style=" width: 65px; text-align: left; ">Số sim:</label><span
+                class="simso2">{{ daugia.Sim.SoSim }}</span><br>
+            <label style=" width: 65px; text-align: left; ">Mạng:</label><a href="#"><img
+                src="{{ baseUrl }}home/img/{{ daugia.Sim.Mang | lower }}.png" alt="{{ daugia.Sim.Mang }}"
+                border="0" style=" max-height: 30px;max-width: 50px;"></a>
+            <label style=" width: 100%; text-align: left; "></label>
+            <label style=" width: auto; text-align: left; ">Thời gian: </label><strong><font
+              id="countdown" size="2"></font></strong><br>
+            {% if daugia.DaDauGia %}
+              {% if daugia.NguoiDauGiaHienTai is None %}
+                <label style=" width: 120px; text-align: left; ">Chưa có người đấu giá</label>
+              {% else %}
+                <label style=" width: 120px; text-align: left; ">Người đã mua: </label><strong><font
+                  size="3">{{ daugia.NguoiDauGiaHienTai }}</font></strong><br>
+                <label style=" width: 120px; text-align: left; ">Với mức giá: </label><strong><font
+                  size="3">{{ daugia.GiaHienTai|intcomma }}₫</font></strong><br>
+              {% endif %}
+            {% else %}
+              {% if daugia.GiaMuaLuon > daugia.GiaHienTai %}
+                <label style=" width: 120px; text-align: left; ">Giá mua luôn: </label><strong><font
+                  size="3">{{ daugia.GiaMuaLuon|intcomma}}₫</font></strong><br>
+                <form id="mualuon_form" name="mualuon_form" method="post" action="{% url 'DauGia:mualuon' daugia.DuongDan %}" class="form">
+                  {% csrf_token %}
+                  <input type="hidden" name="DuongDan" value="{{daugia.DuongDan}}"/>
+                  <input type="submit" class="btn-mua btn-success" style="font-size: 18px;padding: 5px 10px; margin: 5px;" value="Mua luôn"/>
+                </form>
+              {% endif %}
+              {% if daugia.NguoiDauGiaHienTai is None %}
+                <label style=" width: 200px; text-align: left; ">Chưa có người đấu giá</label>
+              {% else %}
+{#                  <label style=" width: 120px; text-align: left; ">Giá mua luôn: </label><strong><font#}
+{#                  size="3">{{ daugia.GiaMuaLuon|intcomma}}₫</font></strong><br>#}
+                <label style=" width: 120px; text-align: left; ">Người mua hiện tại: </label><strong>
+                  <font size="3">{{ daugia.NguoiDauGiaHienTai }}</font></strong><br>
+                  <label style=" width: 120px; text-align: left; ">Giá tăng tối thiểu: </label><strong>
+                  <font size="3">{{ daugia.GiaToiThieu|intcomma }}</font></strong><br>
+                <label style=" width: 120px; text-align: left; ">Giá hiện tại: </label><strong>
+                  <font size="3">{{ daugia.GiaHienTai|intcomma }}₫</font></strong><br>
+              {% endif %}
+              <h3 style="color:red;">{{msg}}</h3>
+                {% if daugia.DaDauGia == False %}
+                        <form id="daugia_form" name="daugia_form" method="post"
+                            action="{% url 'DauGia:chitietdaugia' daugia.DuongDan %}" class="form"
+                            onsubmit="return alphanumeric(document.daugia_form.GiaDauGia)">
+                            {% csrf_token %}
+                            <input type="hidden" name="DuongDan" value="{{daugia.DuongDan}}"/>
+                                    <input type="number"
+                                           min="{{ daugia.GiaHienTai|add:daugia.GiaToiThieu }}"
+                                           step="{{ daugia.GiaToiThieu }}"
+                                           class="form-control"
+                                           style="padding: 2px 10px 5px 5px;"
+                                           name="GiaDauGia"/>
+                                    <input type="submit" class="btn-mua"
+                                           style="font-size: 18px;padding: 5px 10px;background: #F44336; margin: 5px;"
+                                           value="Đấu giá"/>
+                        </form>
+                    {% else %}
+                  <span style="color: red;"> Đấu giá đã kết thúc</span>
+                {% endif %}
+            {% endif %}
+            
+        </div>
+    </div>
+    <div class="col span_7_of_12">
+      <div id="image" class="s-{{daugia.Sim.Mang|lower}}" style="width: 100%">
+          <div class="sim">{{ daugia.Sim.SoSim }}</div>
+      </div>
+    </div>
+  </div>
+  <script>
+      function alphanumeric(e)
+    {
+        var numbers = /^[0-9]*$/gm;
+        if(e.value.match(numbers))
+        {
+            return true;
+        }
+        else
+        {
+          alert('Vui lòng chỉ nhập ký tự số');
+          document.daugia_form.GiaDauGia.focus();
+          return false;
+        }
+    } 
+    
+    if("{{daugia.DaDauGia}}" == "True")
+    {
+      document.getElementById("countdown").innerHTML = " Đấu giá đã kết thúc";
+      document.getElementById("countdown").style.color = "red";
+      document.getElementById("daugia_form").style.display = "none";
+    }
+    else
+    {
+      var countDownDate = new Date({{ daugia.NgayHetHan|date:"U" }} * 1000);
+   
+      var x = setInterval(function() {
+        var now = new Date().getTime();
+
+        var distance = countDownDate - now;
+
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("countdown").innerHTML = " " + days + " Ngày " + hours + " Giờ "
+            + minutes + " Phút " + seconds + " Giây ";
+
+        document.getElementById("countdown").style.color = "blue";
+
+        if (distance < 0) {
+          clearInterval(x);
+          document.getElementById("countdown").innerHTML = " Hết thời gian";
+          document.getElementById("countdown").style.color = "red";
+          document.getElementById("daugia_form").style.display = "none";
+        }
+      }, 1000);
+    }
+  </script>
+<style>
+  /*  SECTIONS  */
+  .section {
+      clear: both;
+      padding: 0px;
+      margin: 0px;
+  }
+
+  /*  COLUMN SETUP  */
+  .col {
+      display: block;
+      float: left;
+  }
+
+  .col:first-child {
+      margin-left: 0;
+  }
+
+  /*  GROUPING  */
+  .group:before,
+  .group:after {
+      content: "";
+      display: table;
+  }
+
+  .group:after {
+      clear: both;
+  }
+
+  .group {
+      zoom: 1; /* For IE 6/7 */
+  }
+
+  /*  GRID OF TWELVE  */
+  .span_7_of_12 {
+      width: 50%;
+  }
+  .span_5_of_12 {
+      width: 50%;
+  }
+
+  /*  GO FULL WIDTH BELOW 480 PIXELS */
+  @media only screen and (max-width: 480px) {
+      .col {
+          margin: 1% 0 1% 0%;
+      }
+
+      .span_5_of_12, .span_7_of_12 {
+          width: 100%;
+      }
+  }
+  label {
+      display: inline-block;
+      line-height: 30px;
+      width: 115px;
+  }
+  ul
+  {
+    width: 100%;
+    display: relative;
+  }
+  li
+  {
+    display:inline;
+  }
+</style>
+{% endblock %}

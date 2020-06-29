@@ -1,0 +1,49 @@
+{% load humanize %}
+<img alt="Loading" src="https://simthanglong.vn/images/filter-loader.gif"
+         name="img_filter"
+         border="0"
+         id="img_filter">
+<table class="tblsim-res2" cellspacing="1">
+            <thead>
+                <tr class="hide480" style="display:none">
+                    <th class="hide480 tdw35" height="25" background="images/Nx25xgrid_bg.gif.pagespeed.ic.EfN4oIAt4r.webp"><span class="grid_title">STT</span>
+                    </th>
+                    <th class="tdw140" background="images/xgrid_bg.gif.pagespeed.ic.HP4k-6Oexi.webp"><span class="grid_title">Số Sim</span>
+                    </th>
+                    <th class="tdw140" background="images/xgrid_bg.gif.pagespeed.ic.HP4k-6Oexi.webp"><span class="grid_title">Giá bán</span>
+                    </th>
+                    <th class="tdw120 hide480" background="images/xgrid_bg.gif.pagespeed.ic.HP4k-6Oexi.webp"><span class="grid_title">Mạng di động</span>
+                    </th>
+                    <th class="hide480 hide555 tdw90" background="images/xgrid_bg.gif.pagespeed.ic.HP4k-6Oexi.webp"><span class="grid_title">Loại sim</span>
+                    </th>
+                    <th class=" tdw85" valign="middle" align="center" background="images/xgrid_bg.gif.pagespeed.ic.HP4k-6Oexi.webp"><span class="grid_title">Mua sim</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+            {% if not sanpham %}
+		        Không tìm thấy sim nào
+		        {% else %}
+            {% for sim in sanpham %}
+                <tr>
+                    <td class="hide480"><span class="sott">{{ forloop.counter }}</span>
+                    </td>
+                    <td><span class="simso"><a href="{% url 'sanpham:sanpham' sim.slug %}"><span>{{ sim.SoSim }}</span>
+                        </a>
+                        </span>
+                    </td>
+                    <td><strong>{{ sim.Gia|intcomma }}₫</strong>
+                    </td>
+                    <td class="hide480"><span class="lg-{{ sim.Mang | lower}}">{{ sim.Mang }}</span>
+                    </td>
+                    <td class="hide480 hide555"> <span class="cat2">{% for ls in stl|slice:"1" %}{{ ls.title}}{% endfor %}</span>
+
+                    </td>
+                    <td class=""><span class="news2 btn-mua" ><a href="{% url 'sanpham:sanpham' sim.slug %}" style="color: white">Mua sim</a> </span>
+                    </td>
+                </tr>
+            {% endfor %}
+            {% endif %}
+            </tbody>
+        </table>
+    <div id="pagination-wrapper"></div>

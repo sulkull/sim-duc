@@ -1,0 +1,16 @@
+<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+    <input type="hidden" name="cmd" value="_cart" />
+    <input type="hidden" name="upload" value="1" />
+    <input type="hidden" name="business" value="ntxl1210-facilitator@gmail.com" />
+    <input type="hidden" name="return" value="http://{{request.get_host}}{% url 'giohang:thanhcong' %}" />
+    <input type="hidden" name="cancel" value="http://{{request.get_host}}{% url 'giohang:checkout' %}" />
+    <input type="hidden" name="currency_code" value="USD" />
+
+    {% for item in CTGHs %}
+        <input type="hidden" name="item_number_{{forloop.counter}}" value="{{item.id}}" />
+        <input type="hidden" name="item_name_{{forloop.counter}}" value="{{item.SP}}" />
+        <input type="hidden" name="quantity_{{forloop.counter}}" value="{{item.SoLuong}}" />
+        <input type="hidden" name="amount_{{forloop.counter}}" value="{{item.ToUSD}}" />
+    {% endfor %}
+    <input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!"/>
+</form>

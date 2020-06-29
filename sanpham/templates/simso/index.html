@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block index %}
+
+{% load static %}
+{% load humanize %}
+<!---------Index -------------->
+    <article>
+        <!----from tim kiem--->
+        {% include 'tim-kiem.html' %}
+        <!--- end tim kiem-->
+        <center>
+            <img alt="Loading" src="/static/home/img/filter-loader.gif" name="loading_div" width="95" height="15" border="0" id="loading_div" style="display:none" />
+        </center>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td valign="middle">
+                    <h1 style=" margin-bottom: 5px; ">Sim số đẹp</h1>
+                </td>
+                <td align="left" valign="middle"><img alt="Loading" src="/static/home/img/filter-loader.gif" name="img_filter" width="95" height="15" border="0" id="img_filter" style="display:none" />
+                </td>
+                <td width="127" align="right" valign="middle"></td>
+            </tr>
+        </table> <strong>Sim so dep</strong> giá rẻ các mạng Viettel, Mobi, Vina. Bán Sim số đẹp giá gốc, đăng ký thông tin chính chủ. Giao <u><i>sim số đẹp</i></u> miễn phí Toàn Quốc
+        <br/>
+
+        <div class="number_01 "><i class="spritestlvn sprite-vip"></i>
+            <h2><a href="/" target="_blank">Sim vip doanh nhân</a></h2> </div>
+        <div class="wrapper">
+            {% include 'sub/sim-doanh-nhan.html' %}
+            <!-- /container-home -->
+            <br> <a href="{% url 'sanpham:simtheoloai' 'sim-gia-re' %}" style=" font-size: 16px; color: #fff; background: #4CAF50; padding: 10px; border-radius: 5px; ">Xem thêm ...</a>
+        </div>
+        <!-- /wrapper -->
+        <div class="number_01 "> <i class="spritestlvn sprite-sale"></i>
+            <h2><a href="{% url 'sanpham:simtheoloai' 'sim-gia-re' %}" target="_blank">Sim khuyến mãi trong ngày</a></h2> </div>
+        <div class="wrapper">
+            {% include 'sub/sim-khuyen-mai.html' %}
+            <!-- /container-home -->
+            <br> <a href="{% url 'sanpham:simtheoloai' 'sim-gia-re' %}" style=" font-size: 16px; color: #fff; background: #4CAF50; padding: 10px; border-radius: 5px; ">Xem thêm ...</a>
+        </div>
+        <!-- /wrapper -->
+        <div class="number_01 "><i class="spritestlvn sprite-like"></i>
+            <h2><a href="{% url 'sanpham:simtheoloai' 'sim-vip' %}" target="_blank">Sim VIP</a></h2> </div>
+        <div id="wrapper" class="wrapper">
+            {% include 'sub/sim-vip.html' %}
+            <br> <a href="{% url 'sanpham:simtheoloai' 'sim-vip' %}" style=" font-size: 16px; color: #fff; background: #4CAF50; padding: 10px; border-radius: 5px; ">Xem thêm ...</a>
+        </div>
+        <div class="number_01 "><i class="spritestlvn sprite-like"></i>
+            <h2><a href="/sim-theo-loai/sim-gia-re" target="_blank">Sim Giá Rẻ</a></h2> </div>
+        <div id="wrapper" class="wrapper">
+            {% include 'sub/sim-gia-re.html' %}
+            <br>
+        <div id="loadMore" style=" font-size: 16px; color: #fff; background: #4CAF50; padding: 10px; border-radius: 5px; ">XEM THÊM SẢN PHẨM</div>
+        <div id="showLess" style="text-align:center;">Show less</div>
+        </div>
+    </article>
+
+<!------End index---->
+{% endblock %}
+

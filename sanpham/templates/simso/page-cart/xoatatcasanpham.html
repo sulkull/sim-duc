@@ -1,0 +1,20 @@
+{% load static %}
+<style>
+    button{
+        clear: both;
+        background: None;
+        color: black;
+        border: None;
+    }
+    button a p{
+        text-decoration: underline;
+    }
+</style>
+{#<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">#}
+<form method="post" action="{% url 'giohang:deleteall' %}" class="form">
+    {% csrf_token %}
+    <input type="hidden" name="product_id" value="{{sanpham.id}}" />
+    <button type="submit">
+        <i class="fa fa-trash fa-2x"></i>
+    </button>
+</form>

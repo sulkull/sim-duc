@@ -1,0 +1,23 @@
+<!--<form method="post" action="/" class="form">-->
+<!--    {% csrf_token %}-->
+<!--    <input type="hidden" name="product_id" value="{{sanpham.id}}" />-->
+<!--    {% for item in CTGHs%}-->
+<!--        {% if sanpham == item.SP %}-->
+<!--            <td>-->
+<!--                <div class="quantity">-->
+<!--                    <h6>Số lượng</h6>-->
+<!--                    <div class="custom">-->
+<!--                        <button onclick="var result = document.getElementById('{{sanpham.id}}'); var sst = result.value; if (!isNaN(sst) && sst > 0 ) result.value&#45;&#45;;return false;" class="reduced items-count" type="button"><i class="icon_minus-06"></i></button>-->
+<!--                        <input type="text" name="SoLuong" id="{{sanpham.id}}" maxlength="12" value="{{item.SoLuong}}" title="Quantity:" class="input-text qty">-->
+<!--                        <button onclick="var result = document.getElementById('{{sanpham.id}}'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;" class="increase items-count" type="button"><i class="icon_plus"></i></button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </td>-->
+
+<!--            <td><p>{{item.ThanhTien}} VNĐ</p></td>-->
+<!--        {% endif %}-->
+<!--    {% endfor %}-->
+<!--        <td>-->
+<!--            <input type="submit" value="Cập nhật" class="btn subs_btn form-control"/>-->
+<!--        </td>-->
+<!--</form>-->

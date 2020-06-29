@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="vi">
+    {% load static %}
+    {% static "" as baseUrl %}
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<link rel="stylesheet" href="{% static 'home/css-main.css' %}">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+{#<style>{% include 'style/main.css' %}</style>#}
+<header>
+<!-------Tiêu đề web------->
+    {% load seo %}
+    {% seo as meta  %}
+    {% for meta in meta %}
+    {% if sanpham.SoSim == Null %}
+    <title>{% block title %} {{ meta.title }} {% endblock %}</title>
+    {% else %}
+        {% block seo %}
+        {% endblock %}
+    {% endif %}
+<!-------Meta------->
+    <link rel="alternate" href="index.html" hreflang="vi" />
+    <meta property="og:site_name" content="{{ meta.title }}">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#20373B" />
+    <link rel="manifest" href="{% static 'manifest.json' %}">
+    <link rel="apple-touch-startup-image" href="icon/192.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="keywords" content="{{ meta.keyword }}" />
+    <meta name="description" content='{{ meta.des }}' />
+    <meta property="fb:app_id" content="{{ meta.fb_app }}" />
+    <meta name="google-site-verification" content="{{ meta.google }}" />
+    <meta property="og:title" content='{{ meta.title }}'>
+    <meta property="og:description" content='{{ meta.des }}'>
+    <meta property="og:image" content="images/img_simthanglong.gif" />
+    <link href="{{ meta.favico }}" rel="icon" type="image/x-icon" />
+    <meta name="robots" content="{{ meta.robots }}" />
+    <meta name="googlebot" content="{{ meta.robots }}" />
+
+{% endfor %}
+</header>
+<body>
+    <div id="main_wrapper">
+        {% include "header.html" %}
+        <div id="main">
+            <article>
+                {% block index %}
+                {% endblock %}
+            </article>
+            <nav>
+                {% include 'cot-trai.html' %}
+            </nav>
+            <aside>
+                {% include 'cot-phai.html' %}
+            </aside>
+
+        </div>
+{% include 'footer.html' %}
+    </div>
+    </body>
+</html>

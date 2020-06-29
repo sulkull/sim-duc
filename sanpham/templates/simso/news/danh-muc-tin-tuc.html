@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% block title %}
+    Danh mục tin tức - {{ TieuDe }}
+{% endblock %}
+{% block index %}
+{% load static %}
+{% load humanize %}
+
+    <article>
+        <!----from tim kiem--->
+        {% include 'tim-kiem.html' %}
+        <!--- end tim kiem-->
+
+        <center><img alt="Loading" src="/static/images/filter-loader.gif.pagespeed.ce.TKfctFe3G_.gif" name="loading_div" width="95" height="15" border="0" id="loading_div" style="display:none">
+        </center>
+        
+      <h1>Danh mục tin tức - {{ TieuDe }}</h1>
+      <table width="100%" border="0" cellpadding="4" cellspacing="1" bgcolor="#DADADA"> 
+          <tbody>
+                {% for tintuc in TinTucs %}
+                    <tr> 
+                        <td align="left" valign="top" bgcolor="#FFFFFF">
+                            <a href="{% url 'tintuc:tintuc' tintuc.DuongDan %}" style="color: black;">
+                                <div>
+                                    <div style="width: 25%; float: left;">
+                                        <img src="{{tintuc.CoverImage.url}}" alt="{{tintuc.TieuDe}}" style="height:100%; width: 100%;">
+                                    </div>
+                                    <div style="width: 65%; float: left;">
+                                        <h2>{{tintuc.TieuDe}}</h2>
+                                        <p>{{tintuc.MoTaNgan}}</p>
+                                        <span style="color: gray;">{{tintuc.NgayTao|date:'d-m-Y'}}</span> ||| <span style="color: gray;">{{ tintuc.LoaiTinTuc }}</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </td> 
+                    </tr> 
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <ul class="pagination" style="list-style: none;">
+
+            {% if TinTucs.has_previous %}
+                <li><a class="pagination-action" href="?page={{ TinTucs.previous_page_number }}"><i class="fa fa-chevron-left" aria-hidden="true"></i></a></li>
+            {% else %}
+                <li class="pagination-action disabled"><span><i class="fa fa-chevron-left" aria-hidden="true"></i></span></li>
+            {% endif %}
+            
+            {% if TinTucs.number|add:'-4' > 1 %}
+                <li><a class="pagination-number" href="?page={{ TinTucs.number|add:'-5' }}">&hellip;</a></li>
+            {% endif %}
+            
+            {% for i in TinTucs.paginator.page_range %}
+                {% if TinTucs.number == i %}
+                    <li class="pagination-number pagination-current active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                {% elif i > TinTucs.number|add:'-5' and i < TinTucs.number|add:'5' %}
+                    <li><a class="pagination-number" href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+            
+            {% if TinTucs.paginator.num_pages > TinTucs.number|add:'4' %}
+                <li><a class="pagination-number" href="?page={{ TinTucs.number|add:'5' }}">&hellip;</a></li>
+            {% endif %}
+            
+            {% if TinTucs.has_next %}
+                <li><a class="pagination-action" href="?page={{ TinTucs.next_page_number }}"><i class="fa fa-chevron-right" aria-hidden="true"></i></a></li>
+            {% else %}
+                <li class="pagination-action disabled"><span><i class="fa fa-chevron-right" aria-hidden="true"></i></span></li>
+            {% endif %}
+            
+        </ul>
+
+    </article>
+<style>
+        .pagination {
+            margin-top: 1em;
+        }
+
+        .pagination-number {
+            display: block;
+            float: left;
+            margin: 0 0.1em;
+            padding: 0.5em 0.8em;
+            border-radius: 2px;
+            color: #fff;
+            border: solid 0.5px;
+        }
+
+        .pagination-number:hover, .pagination-current {
+            text-decoration: none;
+            background-color: #0080DA;
+            border: solid 0.5px;
+            padding: 0.5em 0.8em;
+            border-radius: 2px;
+        }
+
+        .pagination-action {
+            float: left;
+            margin: 0 0.1em;
+            display: block;
+            padding: 0.5em 0.5em;
+            color: #0080DA;
+            font-size: 1.3em;
+        }
+
+        .pagination-action:hover, .pagination-previous, .pagination-next {
+            color: #0080DA;
+        }
+    </style>
+{% endblock %}

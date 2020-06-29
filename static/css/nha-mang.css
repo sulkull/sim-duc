@@ -1,0 +1,93 @@
+[class^="ic-"],
+        [class*="ic-"],
+        [class^="iconmobile-"],
+        [class*="iconmobile-"],
+        .spritestlvn {
+            background-image: url('/static/home/img/spritestlvn.png');
+            background-repeat: no-repeat;
+            display: inline-block;
+            height: 30px;
+            width: 30px;
+            line-height: 30px;
+            vertical-align: middle;
+        }
+.spritestlvn {
+            background-repeat: no-repeat;
+            display: block
+        }
+
+        .sprite-like {
+            width: 32px;
+            height: 32px;
+            background-position: -77px -19px;
+            position: absolute;
+            left: 0;
+            top: 7px
+        }
+
+        .sprite-sale {
+            width: 32px;
+            height: 32px;
+            background-position: -225px -19px;
+            position: absolute;
+            left: 0;
+            top: 7px
+        }
+
+        .nha-mang-gmobile {
+            background-position: -4px -4px
+        }
+
+        .nha-mang-vietnamobile {
+            background-position: -284px -4px
+        }
+
+        .nha-mang-viettel {
+            background-position: -354px -4px
+        }
+
+        .nha-mang-mobifone {
+            background-position: -142px -4px
+        }
+
+        .nha-mang-vinaphone {
+            background-position: -422px -3px
+        }
+
+        .sprite-vip {
+            width: 32px;
+            height: 32px;
+            background-position: -496px -19px;
+            position: absolute;
+            left: 0;
+            top: 7px
+        }
+
+        .nha-mang-viettel,
+        .nha-mang-vinaphone,
+        .nha-mang-mobifone,
+        .nha-mang-vietnamobile,
+        .nha-mang-gmobile,
+        .nha-mang-6,
+        .nha-mang-7 {
+            border-left: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            width: 50px;
+            height: 50px;
+            background-color: #fff;
+            border-radius: 50%;
+            top: 8px;
+
+        }
+
+        .so-sim-home {
+            color: #1f6600;
+            font-size: 17px;
+            font-weight: 700;
+            padding-bottom: 2px;
+            position: relative
+        }
+
+        .so-sim-home+strong {
+            position: relative
+        }

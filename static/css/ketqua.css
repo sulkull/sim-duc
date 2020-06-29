@@ -1,0 +1,138 @@
+.box{
+        background: #d0cfcf9e;
+        text-align: center;
+        padding-top: 10px;
+        padding-bottom: 10px;
+  }
+.box select {
+  background-color: #0563af;
+  color: white;
+  padding: 12px;
+  border: none;
+  font-size: 15px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+  -webkit-appearance: button;
+  appearance: button;
+  outline: none;
+    margin: 4px;
+    border-radius: 2px;
+    max-width: 130px;
+}
+
+.box:hover::before {
+  color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.box select option {
+  padding: 30px;
+}
+@media only screen and (max-width: 480px)
+{
+  .box{
+      display: grid;
+  }
+    .box select {
+    max-width: 90%;
+    }
+}
+
+
+    @media (max-width: 480px) {
+                .filter li {
+                    position: initial
+                }
+                .filter li .listprice {
+                    width: auto;
+                    left: 10px;
+                    right: 10px
+                }
+                #listlengthFilter:before,
+                #listlengthFilter:after {
+                    left: 5%
+                }
+                #listTelcoFilter:before,
+                #listTelcoFilter:after {
+                    left: 30%
+                }
+                #listPriceFilter:before,
+                #listPriceFilter:after {
+                    left: 55%
+                }
+                #listSortFilter:before,
+                #listSortFilter:after {
+                    left: 85%
+                }
+                .product-w60 {
+                    width: 100%
+                }
+                .product-w40 {
+                    width: 100%
+                }
+                .tblsim-res2 tr,
+                .bancanbiet tr {
+                    height: 39px
+                }
+                .tblsim-res2 tbody tr:first-child,
+                .bancanbiet tbody tr:first-child {
+                    height: 33px
+                }
+                .tblsim-res2 .simso {
+                    text-align: center;
+                    padding: 0;
+                    float: none
+                }
+                .bancanbiet tr a {
+                    font-size: 15px
+                }
+                .bancanbiet tr .news2 a:link {
+                    font-size: 15px
+                }
+                .page,
+                .page.active {
+                    padding: 2px 4px!important;
+                    font-size: 14px!important
+                }
+            }
+
+            .tblsim-res2 {
+                background: #ccc;
+                width: 100%
+            }
+
+            .tblsim-res2 tr {
+                background: #fff;
+                vertical-align: middle;
+                text-align: center
+            }
+
+            .tblsim-res2 tr:nth-child(even) {
+                background-color: #f9f9f9
+            }
+
+            .tblsim-res2 tr:hover {
+                background-color: #e7ffca
+            }
+
+            .tblsim-res2 tr {
+                height: 39px!important
+            }
+
+
+  input.sm {
+    display: block;
+    color: white;
+    border: 2px solid #4c6f54ad;
+    background: #182f33;
+    padding: 3px;
+    margin: 5px 40px 1px 0px;
+    float: right;
+}
+img#img_filter {
+    padding-left: 240px;
+    padding-top: 20px;
+    position: absolute;
+    display: none;
+    width:95px;
+     height:15px;
+}

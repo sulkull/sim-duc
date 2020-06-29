@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Đổi mật khẩu
+{% endblock %}
+
+{% block index %}
+    <article>
+    <h1 style="text-align:center">Đổi mật khẩu</h1>
+    <form method="post" action="">
+        {% csrf_token %}
+            <hr />
+            <table>
+                <tr>
+                    <th>
+                        <label for="{{ form.password.id_for_label }}">Mật khẩu hiện tại: </label>
+                    </th>
+                   <td>
+                        {{ form.password }}
+                        {{ form.errors.password}}
+                   </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="{{ form.newpassword.id_for_label }}">Mật khẩu mới: </label>
+                    </th>
+                   <td>
+                        {{ form.newpassword }}
+                        {{ form.errors.newpassword }}
+                   </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="{{ form.renewpassword.id_for_label }}">Nhập lại mật khẩu mới: </label>
+                    </th>
+                   <td>
+                        {{ form.renewpassword }}
+                        {{ form.errors.renewpassword }}
+                   </td>
+                </tr>
+                <tr>
+                    <th>
+
+                    </th>
+                    <td>
+                      <input type="submit" value="Cập nhật" class="btn btn-primary" style="margin: auto; display: block;"/>
+                    </td>
+                </tr>
+            </table>
+    </form>
+    </article>
+<style>
+    .errorlist {
+        list-style-type: none;
+        margin: 0;
+        padding: 10px;
+    }
+    .errorlist li {
+        color: red;
+    }
+</style>
+{% endblock  %}
+

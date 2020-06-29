@@ -1,0 +1,133 @@
+{% extends 'quanly/main.html' %}
+{% block main %}
+    {% load humanize %}
+<div class="content">
+    {% include 'quanly/inc/topbar.html' %}
+       <!-- END: Top Bar -->
+                <div class="intro-y flex items-center mt-8">
+                    <h2 class="text-lg font-medium mr-auto">
+                       {{ title }}
+                    </h2>
+                </div>
+    <div class="pos gap-5 mt-5">
+    <!---Menu --->
+        <div class="box p-2">
+            <div class="chat__tabs nav-tabs justify-center flex">
+                <a data-toggle="tab" data-target="#all"
+                   href="javascript:;" class="flex-1 py-2 rounded-md text-center">Danh sách sim đấu giá</a>
+                <a data-toggle="tab" data-target="#da-ban"
+                   href="javascript:;" class="flex-1 py-2 rounded-md text-center">Danh sách sim đã đấu giá thành công</a>
+
+            </div>
+        </div>
+    <!---end Menu --->
+        <!-- Tat ca  -->
+        <div class="tab-content">
+            <div class="tab-content__pane active" id="all">
+                       <div class="intro-y datatable-wrapper box p-5 mt-5">
+                        <a href="{% url 'quantri:them-dau-gia' %}"><button class="button w-50 mr-1 mb-2 bg-theme-9 text-white">Thêm sim đấu giá</button></a>
+                           <table class="table table-report table-report--bordered display datatable w-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-b-2 whitespace-no-wrap">Số sim</th>
+                                            <th class="border-b-2 text-center whitespace-no-wrap">Giá mua luôn</th>
+                                            <th class="border-b-2 text-center whitespace-no-wrap">Giá tối thiểu</th>
+                                            <th class="border-b-2 text-center whitespace-no-wrap">Giá hiện tại</th>
+                                            <th class="border-b-2 text-center whitespace-no-wrap">Người đấu giá hiện tại</th>
+                                            <th class="border-b-2 text-center whitespace-no-wrap">Lượt xem</th>
+                                            <th class="border-b-2 text-center whitespace-no-wrap">Tác vụ</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {%  for d in daugia %}
+                                        <tr class="border-b">
+                                            <td>
+                                                <a href="{% url 'DauGia:chitietdaugia' d.DuongDan %}"target="_blank" class="font-medium whitespace-no-wrap">{{ d.Sim.SoSim }}</a>
+                                                <div class="text-gray-600 text-xs whitespace-no-wrap"> Ngày hết hạn đấu giá {{ d.NgayHetHan|date:'d/m/yy' }}</div>
+                                            </td>
+                                            <td class="text-center border-b">
+                                                <p>{{ d.GiaMuaLuon|intcomma }} vnđ</p>
+                                            </td>
+                                            <td class="text-center border-b">
+                                                <p>{{ d.GiaToiThieu|intcomma }} vnđ</p>
+                                            </td>
+                                            <td class="text-center border-b">
+                                                <p>{{ d.GiaHienTai|intcomma }} vnđ</p>
+                                            </td>
+                                            <td class="text-center border-b">
+                                                <p>{% if d.NguoiDauGiaHienTai is None %} - {% else %} {{ d.NguoiDauGiaHienTai   }} {% endif %}</p>
+                                            </td>
+                                            <td class="text-center border-b">
+                                                 <div class="flex items-center justify-center text-theme-9">
+                                                     <i data-feather="eye" class="w-4 h-4 mr-2"></i>{{ d.luotxem }} </div>
+                                            </td>
+                                            <td class="table-report__action w-56">
+                                                <div class="flex justify-center items-center">
+                                                    <a class="flex items-center mr-3" href="{% url 'quantri:sua-dau-gia' d.id %}" target="_blank"> <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Cập nhật </a>
+                                                    <a class="flex items-center text-theme-6" href="{% url 'quantri:xoa-dau-gia' d.id %}" target="_blank"> <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Xoá </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+
+                                </table>
+                            </div>
+            </div>
+            <!-- END: -->
+        <!-- Da ban  -->
+            <div class="tab-content__pane" id="da-ban">
+                        <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
+                                <table class="table table-report -mt-2">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-b-2 whitespace-no-wrap">Số sim</th>
+                                            <th class="border-b-2 text-center whitespace-no-wrap">Giá mua luôn</th>
+                                            <th class="border-b-2 text-center whitespace-no-wrap">Giá tối thiểu</th>
+                                            <th class="border-b-2 text-center whitespace-no-wrap">Giá hiện tại</th>
+                                            <th class="border-b-2 text-center whitespace-no-wrap">Người đấu giá hiện tại</th>
+                                            <th class="border-b-2 text-center whitespace-no-wrap">Lượt xem</th>
+                                            <th class="border-b-2 text-center whitespace-no-wrap">Tác vụ</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {%  for d in sp_dadaugia %}
+                                        <tr class="border-b">
+                                            <td>
+                                                <a href="{% url 'DauGia:chitietdaugia' d.DuongDan %}"target="_blank" class="font-medium whitespace-no-wrap">{{ d.Sim.SoSim }}</a>
+                                                <div class="text-gray-600 text-xs whitespace-no-wrap"> Ngày hết hạn đấu giá {{ d.NgayHetHan|date:'d/m/yy' }}</div>
+                                            </td>
+                                            <td class="text-center border-b">
+                                                <p>{{ d.GiaMuaLuon|intcomma }} vnđ</p>
+                                            </td>
+                                            <td class="text-center border-b">
+                                                <p>{{ d.GiaToiThieu|intcomma }} vnđ</p>
+                                            </td>
+                                            <td class="text-center border-b">
+                                                <p>{{ d.GiaHienTai|intcomma }} vnđ</p>
+                                            </td>
+                                            <td class="text-center border-b">
+                                                <p>{% if d.NguoiDauGiaHienTai is None %} - {% else %} {{ d.NguoiDauGiaHienTai   }} {% endif %}</p>
+                                            </td>
+                                            <td class="text-center border-b">
+                                                 <div class="flex items-center justify-center text-theme-9">
+                                                     <i data-feather="eye" class="w-4 h-4 mr-2"></i>{{ d.luotxem }} </div>
+                                            </td>
+                                            <td class="table-report__action w-56">
+                                                <div class="flex justify-center items-center">
+                                                    <a class="flex items-center mr-3" href="{% url 'quantri:sua-dau-gia' d.id %}" target="_blank"> <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Cập nhật </a>
+                                                    <a class="flex items-center text-theme-6" href="{% url 'quantri:xoa-dau-gia' d.id %}" target="_blank"> <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Xoá </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+            </div>
+        </div>
+        <!-- END: -->
+    </div>
+</div>
+    <link rel="stylesheet" href="/static/css/nha-mang.css">
+{% endblock %}

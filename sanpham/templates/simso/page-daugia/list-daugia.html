@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+
+{% block index %}
+{% load static %}
+{% load humanize %}
+  <article>
+    <!----from tim kiem--->
+    {% include 'tim-kiem.html' %}
+    <!--- end tim kiem-->
+
+    <center>
+        <img alt="Loading" src="/static/home/img/filter-loader.gif" name="loading_div" width="95" height="15" border="0" id="loading_div" style="display:none" />
+    </center>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td valign="middle">
+                <h1 style=" margin-bottom: 5px; ">Sim số đẹp</h1>
+            </td>
+            <td align="left" valign="middle"><img alt="Loading" src="/static/home/img/filter-loader.gif" name="img_filter" width="95" height="15" border="0" id="img_filter" style="display:none" />
+            </td>
+            <td width="127" align="right" valign="middle"></td>
+        </tr>
+    </table> <strong>Sim so dep</strong> giá rẻ các mạng Viettel, Mobi, Vina. Bán Sim số đẹp giá gốc, đăng ký thông tin chính chủ. Giao <u><i>sim số đẹp</i></u> miễn phí Toàn Quốc
+    <br/>
+
+    <div class="number_01 "><i class="spritestlvn sprite-vip"></i>
+        <h2><a href="/" target="_blank">Danh Sách Sim Đấu Giá</a></h2> </div>
+    <div class="wrapper">
+      <div class="container-home">
+        <div class="photo-grid clearfix">
+            <ul class="clearfix">
+              {% for daugia in daugia %}
+                <li id="dau-gia">
+                    <div style=" padding: 2px; ">
+                        <div class="simcard">
+                            <div class="nha-mang-{{ daugia.Sim.Mang| lower }} spritestlvn"></div>
+                            <div class="so-sim-home">Sim đấu giá: {{ daugia.Sim.SoSim }}</div>
+                            <div id="countdown{{forloop.counter}}" class="so-sim-home"></div>
+
+                            
+
+                            {% if daugia.DaDauGia %}
+                              {% if daugia.NguoiDauGiaHienTai is None %}
+                                <div class="so-sim-home">Chưa có người đấu giá</div>
+                              {% else %}
+                                <div class="so-sim-home">Người đã mua: {{ daugia.NguoiDauGiaHienTai }}</div>
+                                <div class="so-sim-home">Với mức giá: {{ daugia.GiaHienTai|intcomma }}đ</div>
+                              {% endif %}
+                              <script>
+                                document.getElementById("countdown{{forloop.counter}}").innerHTML = "Đấu giá đã kết thúc";
+                                document.getElementById("countdown{{forloop.counter}}").style.color = "red";
+                              </script>
+                            {% else %}
+                              <script>
+                                var countDownDate{{forloop.counter}} = new Date({{ daugia.NgayHetHan|date:"U" }} * 1000);
+                
+                                var x = setInterval(function() {
+                                  var now = new Date().getTime();
+              
+                                  var distance = countDownDate{{forloop.counter}} - now;
+              
+                                  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                                  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                                  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+              
+                                  document.getElementById("countdown{{forloop.counter}}").innerHTML = "Thời gian: " + days + " Ngày " + hours + " Giờ "
+                                      + minutes + " Phút " + seconds + " Giây ";
+              
+                                  document.getElementById("countdown{{forloop.counter}}").style.color = "blue";
+              
+                                  if (distance < 0) {
+                                    clearInterval(x);
+                                    document.getElementById("countdown{{forloop.counter}}").innerHTML = "Thời gian: Hết thời gian";
+                                    document.getElementById("countdown{{forloop.counter}}").style.color = "red";
+                                  }
+                                }, 1000);
+                              </script>
+                              {% if daugia.GiaMuaLuon > daugia.GiaHienTai %}
+                                <div class="so-sim-home">Giá mua luôn: {{ daugia.GiaMuaLuon|intcomma }}₫ </div>
+                              {% endif %}
+                              {% if daugia.NguoiDauGiaHienTai is None %}
+                                <div class="so-sim-home">Chưa có người đấu giá</div>
+                              {% else %}
+                                <div class="so-sim-home">Người mua hiện tại: {{ daugia.NguoiDauGiaHienTai }}</div>
+                                <div class="so-sim-home">Giá hiện tại: {{ daugia.GiaHienTai|intcomma }}đ</div>
+                              {% endif %}
+                              <a href="{% url 'DauGia:chitietdaugia' daugia.DuongDan %}">
+                                <button type="submit" class="btn-mua" style="font-size: 18px;padding: 5px 10px;background: #F44336;">Đấu giá</button>
+                              </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </li>
+                
+              {% endfor %}
+            </ul>
+          </div>
+        <!-- /photo-grid -->
+      </div>
+    </div>
+  </article>
+  <ul class="pagination" style="list-style: none;">
+
+  {% if daugia.has_previous %}
+      <li><a class="pagination-action" href="?page={{ daugia.previous_page_number }}"><i class="fa fa-chevron-left" aria-hidden="true"></i></a></li>
+  {% else %}
+      <li class="pagination-action disabled"><span><i class="fa fa-chevron-left" aria-hidden="true"></i></span></li>
+  {% endif %}
+
+  {% if daugia.number|add:'-4' > 1 %}
+      <li><a class="pagination-number" href="?page={{ daugia.number|add:'-5' }}">&hellip;</a></li>
+  {% endif %}
+
+  {% for i in daugia.paginator.page_range %}
+      {% if daugia.number == i %}
+          <li class="pagination-number pagination-current active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% elif i > daugia.number|add:'-5' and i < daugia.number|add:'5' %}
+          <li><a class="pagination-number" href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+  {% endfor %}
+
+  {% if daugia.paginator.num_pages > daugia.number|add:'4' %}
+      <li><a class="pagination-number" href="?page={{ daugia.number|add:'5' }}">&hellip;</a></li>
+  {% endif %}
+
+  {% if daugia.has_next %}
+      <li><a class="pagination-action" href="?page={{ daugia.next_page_number }}"><i class="fa fa-chevron-right" aria-hidden="true"></i></a></li>
+  {% else %}
+      <li class="pagination-action disabled"><span><i class="fa fa-chevron-right" aria-hidden="true"></i></span></li>
+  {% endif %}
+
+  </ul>
+<style>
+  .pagination {
+            margin-top: 1em;
+        }
+
+        .pagination-number {
+            display: block;
+            float: left;
+            margin: 0 0.1em;
+            padding: 0.5em 0.8em;
+            border-radius: 2px;
+            color: #fff;
+            border: solid 0.5px;
+        }
+
+        .pagination-number:hover, .pagination-current {
+            text-decoration: none;
+            background-color: #0080DA;
+            border: solid 0.5px;
+            padding: 0.5em 0.8em;
+            border-radius: 2px;
+        }
+
+        .pagination-action {
+            float: left;
+            margin: 0 0.1em;
+            display: block;
+            padding: 0.5em 0.5em;
+            color: #0080DA;
+            font-size: 1.3em;
+        }
+
+        .pagination-action:hover, .pagination-previous, .pagination-next {
+            color: #0080DA;
+        }
+</style>
+{% endblock %}

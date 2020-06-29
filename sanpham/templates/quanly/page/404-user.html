@@ -1,0 +1,13 @@
+{% extends 'quanly/main.html' %}
+{% load static %}
+{% block main %}
+<div class="content">
+    {% include 'quanly/inc/topbar.html' %}
+                <div class="grid">
+                  <span style="padding: 20px;color: red;font-size: 20px;text-align: center;">BẠN KHÔNG CÓ QUYỀN TRUY CẬP TRANG NÀY !!!  </span>
+                  <a href="{% url 'sanpham:home' %}"><span style="padding: 20px;color: blue;font-size: 15px;text-align: center;"> <<< Quay lại trang chủ  </span></a>
+
+                </div>
+            </div>
+
+{% endblock %}

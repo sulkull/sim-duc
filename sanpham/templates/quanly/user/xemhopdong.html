@@ -1,0 +1,119 @@
+{% extends 'quanly/main.html' %}
+{% load static %}
+{% block main %}
+<div class="content">
+                {% include 'quanly/inc/topbar.html' %}
+                <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
+                    <h2 class="text-lg font-medium mr-auto">
+                        Hợp đồng
+                    </h2>
+                    <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
+                        <button class="button text-white bg-theme-1 shadow-md mr-2">Print</button>
+                        <div class="dropdown relative ml-auto sm:ml-0">
+                            <button class="dropdown-toggle button px-2 box text-gray-700">
+                                <span class="w-5 h-5 flex items-center justify-center"> <i class="w-4 h-4" data-feather="plus"></i> </span>
+                            </button>
+                            <div class="dropdown-box mt-10 absolute w-40 top-0 right-0 z-20">
+                                <div class="dropdown-box__content box p-2">
+                                    <a href="#" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white hover:bg-gray-200 rounded-md"> <i data-feather="file" class="w-4 h-4 mr-2"></i> Export Word </a>
+                                    <a href="#" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white hover:bg-gray-200 rounded-md"> <i data-feather="file" class="w-4 h-4 mr-2"></i> Export PDF </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- BEGIN: Invoice -->
+                <div class="intro-y box overflow-hidden mt-5">
+                    <div class="border-b border-gray-200 text-center sm:text-left">
+                        <div class="px-5 py-10 sm:px-20 sm:py-20">
+                            <div class="text-theme-1 font-semibold text-3xl">Hợp đồng thuê phòng</div>
+                            <div class="mt-2"> Số hợp đồng <span class="font-medium">#{{ hopdong.id }}</span> </div>
+                            <div class="mt-1">Tạo ngày : {{ hopdong.ngaytao|date:'d/m/yy' }}</div>
+                        </div>
+                        <div class="flex flex-col lg:flex-row px-5 sm:px-20 pt-10 pb-10 sm:pb-20">
+                            <div class="">
+                                <div class="text-base text-gray-600">Tên khách hàng</div>
+                                <div class="text-lg font-medium text-theme-1 mt-2">{{ hopdong.nguoithue.get_full_name }}</div>
+                                <div class="mt-1">{{ hopdong.nguoithue.email }}</div>
+                                <div class="mt-1">{{ hopdong.nguoithue.SDT }}</div>
+                                <div class="mt-1">{{ hopdong.nguoithue.DiaChi }}</div>
+                            </div>
+                            <div class="lg:text-right mt-10 lg:mt-0 lg:ml-auto">
+                                <div class="text-base text-gray-600">Thời hạn hợp đồng</div>
+                                <div class="mt-1">{{ hopdong.thoihanthue }} tháng</div>
+                                <div class="text-lg font-medium text-theme-1 mt-2">{{ hopdong.phong }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-5 sm:px-16 py-10 sm:py-20">
+                        <div class="overflow-x-auto">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="border-b-2 whitespace-no-wrap">Mô tả</th>
+                                        <th class="border-b-2 text-right whitespace-no-wrap">Thời gian thuê</th>
+                                        <th class="border-b-2 text-right whitespace-no-wrap">Giá</th>
+                                        <th class="border-b-2 text-right whitespace-no-wrap">Trạng thái</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="border-b">
+                                            <div class="font-medium whitespace-no-wrap">Thanh toán tiền cọc</div>
+                                            <div class="text-gray-600 text-xs whitespace-no-wrap">tiền cọc hợp đồng</div>
+                                        </td>
+                                        <td class="text-right border-b w-32">{{ hopdong.thoihanthue }} tháng</td>
+                                        <td class="text-right border-b w-32">{{ hopdong.tiencoc }} vnđ</td>
+                                        <td class="text-right border-b w-32 font-medium">Xác nhận</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border-b">
+                                            <div class="font-medium whitespace-no-wrap">Tiền phòng</div>
+                                            <div class="text-gray-600 text-xs whitespace-no-wrap">tiền phòng 1 tháng</div>
+                                        </td>
+                                        <td class="text-right border-b w-32">1 tháng</td>
+                                        <td class="text-right border-b w-32">{{ hopdong.phong.giaphong }} vnđ</td>
+                                        <td class="text-right border-b w-32 font-medium">Thanh toán hàng tháng</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="px-5 sm:px-16 py-10 sm:py-20">
+                        <div class="overflow-x-auto">
+                            <label>Điều khoản A (người thuê) :</label>
+                            <div class="">
+                                <p>{{ hopdong.dieukhoanA|striptags |capfirst}}</p>
+                            </div>
+                            <hr style="margin: 20px;">
+
+                            <label>Điều khoản B (người cho thuê) :</label>
+                            <div class="">
+                                <p>{{ hopdong.dieukhoanB|striptags|capfirst}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-5 sm:px-20 pb-10 sm:pb-20 flex flex-col-reverse sm:flex-row">
+                        <div class="text-center sm:text-left mt-10 sm:mt-0">
+                            <div class="text-base text-gray-600">Thông tin thanh toán</div>
+                            <div class="text-lg text-theme-1 font-medium mt-2">Bảo Nhi</div>
+                            <div class="mt-1">Số tài khoản : 065456663333</div>
+                            <div class="mt-1">Ngân hàng : Ngân hàng ACB - Quận 1 -Tp.HCM</div>
+                        </div>
+                        <div class="text-center sm:text-right sm:ml-auto">
+                            <div class="text-base text-gray-600">Trạng thái hợp đồng</div>
+                            {% if hopdong.Xacnhan == True %}
+                            <div class="text-xl text-theme-1 font-medium mt-2">Đã xác nhận</div>
+                            {% else %}
+                             <div class="text-xl text-theme-1 font-medium mt-2">Chưa xác nhận</div>
+                            {% endif %}
+                            <div class="mt-1 tetx-xs"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END: Invoice -->
+            </div>
+
+</div>
+<link rel="stylesheet" href="{% static 'css/from-fix.css' %}">
+{% endblock %}

@@ -1,0 +1,7 @@
+{% for loaisanpham in LoaiSanPhams %}
+        <li class="nav-item">
+            <a alt="{{loaisanpham.TenLSP}}" href="{% url 'sanphamtheoloai' loaisanpham.id %}"  class="nav-link">
+                {{loaisanpham.TenLSP}}
+            </a>
+        </li>
+{% endfor %}

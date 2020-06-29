@@ -1,0 +1,20 @@
+{% load humanize %}
+<div class="container-home">
+                        <div class="photo-grid clearfix">
+                            <ul class="clearfix sim-moi">
+                                {% for sanpham in thuong %}
+                                    <li id="sim-moi">
+                                        <div style=" padding: 2px; ">
+                                            <a href="{% url 'sanpham:sanpham' sanpham.slug %}">
+                                                <div class="simcard">
+                                                    <div class="nha-mang-{{ sanpham.Mang| lower }} spritestlvn"></div>
+                                                    <div class="so-sim-home">{{ sanpham.SoSim }}</div>{{ sanpham.Gia|intcomma }}₫ </div>
+                                            </a>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <!-- /photo-grid -->
+</div>
+

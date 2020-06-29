@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+{% block seo %}
+    <title>Mua Sim {{ sanpham.SoSim }} - Sim số Đức Lộc</title>
+{% endblock %}
+{% block index %}
+    {% load static %}
+    {% static "" as baseUrl %}
+    {% load humanize %}
+    {% load django_recommend %}
+    <article>
+        {% include 'tim-kiem.html' %}
+
+        <center><img alt="Loading" src="/static/home/img/filter-loader.gif" name="loading_div" width="95" height="15" border="0"
+                     id="loading_div" style="display:none">
+        </center>
+
+        <h1>Sim {{ sanpham.SoSim }} - Bán sim {{ sanpham.SoSim }} giá rẻ</h1>
+        <form id="order_form" name="order_form" method="post" action="{% url 'giohang:update' %}" class="form">
+            {% csrf_token %}
+            <input type="hidden" name="lead_source" value="undefined">
+            <div class="section group" style=" background: #fff; border: 1px solid #ccc; ">
+                <div class="col span_5_of_12">
+                    <div style="width: fit-content;margin: 10px auto;padding: 15px;">
+                        <input name="sosim" type="hidden" id="sosim" value="{{ sanpham.SoSim }}">
+                        <input name="giaban" type="hidden" id="giaban" value="{{ sanpham.Gia|intcomma }}₫">
+                        <input name="mang" type="hidden" id="mang" value="{{ sanpham.Mang }}">
+                        <label style=" width: 65px; text-align: left; ">Số sim:</label><span
+                            class="simso2">{{ sanpham.SoSim }}</span><br>
+                        <label style=" width: 65px; text-align: left; ">Giá bán:</label><strong><font
+                            size="3">{{ sanpham.Gia|intcomma }}₫</font></strong><br>
+                        <label style=" width: 65px; text-align: left; ">Mạng:</label><a href="#"><img
+                            src="{{ baseUrl }}home/img/{{ sanpham.Mang | lower }}.png" alt="{{ sanpham.Mang }}"
+                            border="0" style=" max-height: 30px;max-width: 50px;"></a>
+                        <label style=" width: 100%; text-align: left; ">Lượt xem : {{ sanpham.luotxem }}</label>
+                        <label style=" width: 100%; text-align: left; "> <span style="font-style: italic;">Giao sim miễn phí trên toàn quốc !</span></label>
+
+                        <input type="hidden" name="product_id" value="{{ sanpham.id }}"/>
+                        <input type="submit" onclick="{% url 'giohang:home' %}" name="Submit2" value="Thêm vào giỏ hàng" class="btn-mua"
+                               style="font-size: 18px;padding: 5px 10px;background: #F44336;">
+                        <input type="hidden" name="current_url"
+                               value="{% url 'giohang:home' %}"/>
+                    </div>
+                </div>
+                <div class="col span_7_of_12">
+                   <div id="image" class="s-{{ sanpham.Mang| lower }}">
+                       <div class="sim">{{ sanpham.SoSim }}</div>
+                   </div>
+                </div>
+            </div>
+        </form>
+        <br>
+        <div style=" background: #fff; border: 1px solid #ccc; ">
+            <div style=" padding:10px; ">
+                <strong>Hướng dẫn cách thức mua sim 0962.333.529:</strong><br>
+
+
+                ▪ Cách 1: Sim Thăng Long giao sim và thu tiền tận nhà miễn phí (áp dụng Hà Nội, Tp.HCM và các tỉnh/thành
+                có đại lý)<br>
+                ▪ Cách 2: Quý khách đến cửa hàng tại Hà Nội hoặc Tp.HCM (<a href="/sim-so-dep/10/lien-he.html">Xem địa
+                chỉ cửa hàng tại đây</a>)<br>
+                ▪ Cách 3: Đặt cọc và thanh toán tiền còn lại khi nhận sim (áp dụng tại các tỉnh không có đại lý):
+                Quý khách đảm bảo việc mua hàng bằng cách đặt cọc tối thiểu 10% giá trị sim qua chuyển khoản hoặc mã thẻ
+                cào (<a href="/bai-viet/65/cach-mua-sim-va-thanh-toan.html">Xem danh sách tài khoản ngân hàng tại
+                đây</a>). Chúng tôi sẽ gửi bưu điện phát sim đến tay quý khách và thu tiền còn lại <em>(Hệ thống bưu
+                điện trên cả nước đều cung cấp dịch vụ thu hộ tiền cho người bán - gọi tắt là COD. Theo đó, bưu điện sẽ
+                giao hàng (sim) đến tận tay quý khách và thu tiền cho chúng tôi)</em>
+
+                <br>
+                <br>
+                <em>Chúc quý khách gặp nhiều may mắn khi sở hữu thuê bao <strong>0962.333.529</strong></em>
+            </div>
+        </div>
+        <br>
+        <div class="container-home">
+            <div class="photo-grid clearfix">
+                <div style=" background: #fff; padding: 5px; ">
+                    <h1>Sim gợi ý</h1>
+                </div>
+                <ul class="clearfix sim-moi">
+                    {% for sanpham in sim %}
+                        <li id="sim-moi" style="display: block;">
+                            <div style=" padding: 2px; ">
+                                <a href="{% url 'sanpham:sanpham' sanpham.slug %}">
+                                    <div class="simcard">
+                                        <div class="nha-mang-{{ sanpham.Mang| lower }} spritestlvn"></div>
+                                        <div class="so-sim-home">{{ sanpham.SoSim }}</div>{{ sanpham.Gia|intcomma }}₫ </div>
+                                </a>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        
+        <div align="center"><strong>&lt;&lt; <a href="javascript:history.back(-1)">Về trang trước</a> </strong></div>
+
+        <script>
+            function getCookie(name) { //Gets the value of traffic_source
+                var value = "; " + document.cookie;
+                var parts = value.split("; " + name + "=");
+                if (parts.length == 2) return parts.pop().split(";").shift();
+            }
+
+            function addTrafficSourceToForm() {  //injects the traffic_source value to the form
+                document.order_form.lead_source.value = getCookie("traffic_source");
+            }
+
+            addTrafficSourceToForm() //initates the process
+
+        </script>
+        <form action="" method="get" id="chitietsim"></form>
+        <script type="text/javascript">
+            //set_filter('','');
+            function ctsim(sosim) {
+                document.getElementById("chitietsim").action = sosim;
+                document.getElementById("chitietsim").submit();
+            }
+        </script>
+        <br>
+  <style>
+            /*  SECTIONS  */
+            .section {
+                clear: both;
+                padding: 0px;
+                margin: 0px;
+            }
+
+            /*  COLUMN SETUP  */
+            .col {
+                display: block;
+                float: left;
+            }
+
+            .col:first-child {
+                margin-left: 0;
+            }
+
+            /*  GROUPING  */
+            .group:before,
+            .group:after {
+                content: "";
+                display: table;
+            }
+
+            .group:after {
+                clear: both;
+            }
+
+            .group {
+                zoom: 1; /* For IE 6/7 */
+            }
+
+            /*  GRID OF TWELVE  */
+
+            .span_7_of_12 {
+                width: 58.33%;
+            }
+
+
+            .span_5_of_12 {
+                width: 41.66%;
+            }
+
+
+            /*  GO FULL WIDTH BELOW 480 PIXELS */
+            @media only screen and (max-width: 480px) {
+                .col {
+                    margin: 1% 0 1% 0%;
+                }
+
+                .span_5_of_12, .span_7_of_12 {
+                    width: 100%;
+                }
+            }
+
+            #hoten, #dienthoai, #diachi, #yeucau, #sosim {
+                width: 100%;
+                padding: 10px 10px;
+                margin: 3px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+            #order_form label {
+                display: inline-block;
+                line-height: 30px;
+                width: 115px;
+            }
+        </style>
+    </article>
+{% endblock %}

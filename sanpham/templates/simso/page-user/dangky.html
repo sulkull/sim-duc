@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% block index %}
+
+{% load static %}
+{% load humanize %}
+<style>
+    .errorlist {
+        list-style-type: none;
+        margin: 0;
+        padding: 10px;
+    }
+    .errorlist li {
+        color: red;
+    }
+</style>
+<article>
+    <div class="dangky">
+        <form action="" method="post">
+            {% csrf_token %}
+             <table>
+                 <tbody>
+                    <tr>
+                        <th>
+                            <label for="{{ form.username.id_for_label }}">Tài khoản: </label>
+                        </th>
+                        <td>
+                            {{ form.username }}
+                            {{ form.errors.username }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <label for="{{ form.password1.id_for_label }}">Mật khẩu: </label>
+                        </th>
+                       <td>
+                            {{ form.password1 }}
+                            {{ form.errors.password1}}
+                       </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <label for="{{ form.password2.id_for_label }}">Nhập lại mật khẩu: </label>
+                        </th>
+                       <td>
+                            {{ form.password2 }}
+                            {{ form.errors.password2 }}
+                       </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            <label for="{{ form.firstname.id_for_label }}">Họ: </label>
+                        </th>
+                        <td >
+                            {{ form.firstname }}
+                            {{ form.errors.firstname}}
+                        </td>
+                    </tr>
+                     <tr>
+                         <th >
+                               <label for="{{ form.lastname.id_for_label }}">Tên: </label>
+                            </th>
+                            <td>
+                                {{ form.lastname }}
+                                {{ form.errors.lastname}}
+                            </td>
+                     </tr>
+
+                    <tr>
+                        <th>
+                            <label for="{{ form.email.id_for_label }}">Email: </label>
+                        </th>
+                       <td>
+                            {{ form.email }}
+                            {{ form.errors.email }}
+                       </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            <label for="{{ form.sdt.id_for_label }}">Số điện thoại: </label>
+                        </th>
+                       <td>
+                            {{ form.sdt }}
+                            {{ form.errors.sdt }}
+                       </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            <label for="{{ form.gioitinh.id_for_label }}">Giới tính: </label>
+                        </th>
+                       <td>
+                            {{ form.gioitinh }}
+                            {{ form.errors.gioitinh }}
+                       </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            <label for="{{ form.ngaysinh.id_for_label }}">Ngày sinh: </label>
+                        </th>
+                       <td>
+                            {{ form.ngaysinh }}
+                            {{ form.errors.ngaysinh }}
+                       </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            <label for="{{ form.diachi.id_for_label }}">Địa chỉ: </label>
+                        </th>
+                       <td>
+                            {{ form.diachi }}
+                            {{ form.errors.diachi }}
+                       </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+
+                        </th>
+                        <td>
+                          <button type="submit" class="btn btn-primary" style="color: white"> Đăng ký</button>
+                        </td>
+                    </tr>
+                 </tbody>
+            </table>
+
+        </form>
+    </div>
+</article>
+{% endblock %}

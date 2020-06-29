@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Nhập mã xác thực từ số điện thoại
+{% endblock %}
+
+{% block index %}
+<article style="text-align: center;">
+<div class="track_inner">
+    <div class="track_title" style="padding-bottom:30px;">
+        <h1>Xác thực tài khoản bằng số điện thoại</h1>
+        <p>Vui lòng nhập mã xác thực vào ô dưới đây để xác thực tài khoản.</p>
+    </div>
+    <form class="track_form row" method="POST" action=".">
+        {% csrf_token %}
+        {% if Error %}
+            <div class="alert alert-danger" style="margin: auto; margin-bottom:10px;">
+                <strong>{{Error}}</strong>
+            </div>
+        {% endif %}
+        <div class="col-lg-12 form-group" style="text-align: center; font-size: 18px;">
+            <input class="form-control" type="text" name="code" id="id_code" autofocus required style="text-align: center; width:50%; margin:auto">
+        </div>
+        <div class="col-lg-12 form-group">
+            <button type="submit" value="submit" class="btn btn-primary">Xác thực</button>
+        </div>
+    </form>
+</div>
+</article>
+{% endblock  %}
+

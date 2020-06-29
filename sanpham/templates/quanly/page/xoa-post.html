@@ -1,0 +1,32 @@
+{% extends 'quanly/main.html' %}
+{% load static %}
+{% block main %}
+<div class="content">
+    {% include 'quanly/inc/topbar.html' %}
+                <div class="grid">
+                    <div class="row-delete" style="margin: 50px;">
+                        <form id="edit-job-form" action='' method='POST'>
+                            {% csrf_token %}
+                            <span>Bạn có muốn  "<b> {{ item }} {{ object.name }} có id là : {{ object.id }}</b>" không ?</span>
+                            <div class="form-group">
+
+                                <div class="form-row">
+                                    <a href="/quantri">
+                                        <button class="button w-50 inline-block mr-1 mb-2 bg-theme-9 text-white inline-flex items-center">
+                                            Quay lại
+                                         <i data-feather="corner-up-left" class="w-4 h-4 mr-2"></i>
+                                        </button>
+                                        </a>
+                                        <button class="button w-30 inline-block mr-1 mb-3 bg-theme-6 text-white inline-flex items-center"> Xoá nhé !!!
+                                         <i data-loading-icon="puff" data-color="white" class="w-4 h-4 ml-auto"></i>
+                                        </button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+{% endblock %}

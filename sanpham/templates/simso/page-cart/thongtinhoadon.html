@@ -1,0 +1,33 @@
+{% load humanize %}
+{% autoescape off %}
+    <p>Xin chào {{ user.username }},</p>
+    <p>Thông tin đơn hóa đơn của bạn:</p>
+    <table class="table" style="text-align: center;">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Số sim</th>
+                <th scope="col">Giá</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in Ctghs %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{item.SP}}</td>
+                    <td>{{item.DonGia|intcomma }}₫</td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="2"></td>
+                <td>Phí vận chuyển: Miễn phí</td>
+            </tr>
+            <tr>
+                <td colspan="2"></td>
+                <td>Tổng tiền: {{Cart_obj.TongTien|intcomma }}₫</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi, nếu có thắc mắc hãy liên lạc với chúng tôi để được giải đáp.</p>
+    <p>Hotline: xxxxxxxxx || Email: ntxl1210@gmail.com</p>
+{% endautoescape %}

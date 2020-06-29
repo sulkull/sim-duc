@@ -1,0 +1,96 @@
+{% extends 'quanly/main.html' %}
+
+{% block main %}
+<div class="content">
+    {% include 'quanly/inc/topbar.html' %}
+       <!-- END: Top Bar -->
+                <div class="intro-y flex items-center mt-8">
+                    <h2 class="text-lg font-medium mr-auto">
+                       {{ title }}
+                    </h2>
+                </div>
+    <form id="dang-bai" action="" method="post">
+        {% csrf_token %}
+        {{ form.errors }}
+        <!-- BEGIN: Form Layout -->
+                <div class="grid grid-cols-12 gap-6 mt-5" style="background: white">
+                    <div class="intro-y col-span-12 lg:col-span-6">
+                        <div class="intro-y box p-5">
+                            <div>
+                                <label>Chọn</label>
+                                {{ form.Sim }}
+                                {{ form.Sim.errors }}
+
+                            </div>
+                            <div class="mt-3">
+                                <div class="sm:grid grid-cols-2 gap-2">
+                                     <div class="relative mt-2">
+                                        <label>Thời gian hết hạn</label>
+                                        <div class="relative mt-2">
+                                            {{form.NgayHetHan }}
+                                            {{ form.NgayHetHan.errors }}
+                                        </div>
+                                     </div>
+                                    <div class="relative mt-2">
+                                        <label>Lượt xem</label>
+                                        <div class="relative mx-auto">
+                                            {{ form.luotxem }}
+                                            {{ form.luotxem.errors }}
+                                        </div>
+                                     </div>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <label>Giá mua luôn</label>
+                                <div class="relative mt-2">
+                                    {{ form.GiaMuaLuon }}
+                                    {{ form.GiaMuaLuon.errors }}
+                                    <div class="absolute top-0 right-0 rounded-r w-10 h-full flex items-center justify-center bg-gray-100 border text-gray-600">vnđ</div>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <label>Giá tối thiểu / lần</label>
+                                <div class="relative mt-2">
+                                    {{ form.GiaToiThieu }}
+                                    {{ form.GiaToiThieu.errors }}
+                                    <div class="absolute top-0 right-0 rounded-r w-10 h-full flex items-center justify-center bg-gray-100 border text-gray-600">vnđ</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!----Ben phải----->
+                    <div class="intro-x col-span-12 lg:col-span-6">
+                        <div class="intro-y box p-5">
+                            <div class="mt-3">
+                                <label>Thông tin  </label>
+                                <div class="mt-2">
+                                    {% if daugia.NguoiDauGiaHienTai == Null %}
+                                       Chưa có người đấu giá
+                                    {% else %}
+                                     Người đấu giá cao nhất: <b>{{ daugia.NguoiDauGiaHienTai.get_full_name }}</b>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <label>Trang thái sim</label>
+                                <span style="display: block;
+                                            font-size: 13px;
+                                            color: #696060bf;
+                                            font-style: italic;">(Chọn là Đã đấu giá) </span>
+
+                                <div class="mt-2">
+                                    {{ form.DaDauGia }}
+                                </div>
+                            </div>
+
+                            <div class="text-right mt-5">
+{#                                <button type="button" class="button w-24 border text-gray-700 mr-1">Cancel</button>#}
+                                <button type="submit" id="toast" class="button w-24 bg-theme-1 text-white">Lưu lại</button>
+                            </div>
+                        </div>
+                    </div>
+</div>
+        <!-- END: Form Layout -->
+    </form>
+</div>
+{% endblock %}

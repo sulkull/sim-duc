@@ -1,0 +1,62 @@
+{% extends 'quanly/main.html' %}
+{% block main %}
+    {% load humanize %}
+<div class="content">
+    {% include 'quanly/inc/topbar.html' %}
+       <!-- END: Top Bar -->
+                <div class="intro-y flex items-center mt-8">
+                    <h2 class="text-lg font-medium mr-auto">
+                       {{ title }}
+                    </h2>
+                </div>
+    <div class="pos gap-5 mt-5">
+    <!---Menu --->
+    <!---end Menu --->
+        <!-- Tat ca  -->
+        <div class="tab-content">
+            <div class="tab-content__pane active" id="all">
+                <a href="{% url 'quantri:them-tin-tuc' %}"><button class="button w-50 mr-1 mb-2 bg-theme-9 text-white">Thêm tin tức</button></a>
+                        <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
+                                <table class="table table-report -mt-2">
+                                    <thead>
+                                        <tr>
+                                            <th class="whitespace-no-wrap">Tiêu đề</th>
+                                            <th class="whitespace-no-wrap">Mô tả ngắn</th>
+                                            <th class="whitespace-no-wrap">Đường dẫn</th>
+                                            <th class="whitespace-no-wrap">Loại tin tức</th>
+                                            <th class="text-center whitespace-no-wrap">Tác vụ</th>
+                                        </tr>
+                                    </thead>
+                                    {%  for d in tintuc %}
+                                    <tbody>
+                                        <tr class="intro-x">
+                                            <td>
+                                                <a href="{% url 'tintuc:tintuc' d.DuongDan %}" target="_blank" class="font-medium whitespace-no-wrap">{{ d.TieuDe }}</a>
+                                                <div class="text-gray-600 text-xs whitespace-no-wrap"> Ngày nhập {{ d.NgayTao|date:'d/m/yy' }}</div>
+                                            </td>
+                                            <td class="w-40">
+                                                <p>{{ d.MoTaNgan }}</p>
+                                            </td>
+                                            <td class="w-40">
+                                                <p>{{ d.DuongDan }}</p>
+                                            </td>
+                                            <td class="w-40">
+                                                <p>{{ d.LoaiTinTuc }}</p>
+                                            </td>
+                                            <td class="table-report__action w-56">
+                                                <div class="flex justify-center items-center">
+                                                    <a class="flex items-center mr-3" href="{% url 'quantri:sua-tin-tuc' d.id %}" target="_blank"> <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Sửa </a>
+                                                    <a class="flex items-center text-theme-6" href="{% url 'quantri:xoa-tin-tuc' d.id %}" target="_blank"> <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Xoá </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    {% endfor %}
+                                </table>
+                            </div>
+            </div>
+            <!-- END: -->
+    </div>
+</div>
+    <link rel="stylesheet" href="/static/css/nha-mang.css">
+{% endblock %}

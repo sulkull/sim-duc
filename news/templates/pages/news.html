@@ -1,0 +1,142 @@
+{% extends "pages/basenews.html" %}
+{% load static %}
+
+{% block title %}
+Tin tức
+{% endblock %}
+
+{% block cssblock %}
+    <!-- Icon css link -->
+    <link href="{% static 'home/css/font-awesome.min.css' %}" rel="stylesheet">
+    <link href="{% static 'home/vendors/line-icon/css/simple-line-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'home/vendors/elegant-icon/style.css' %}" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="{% static 'home/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Rev slider css -->
+    <link href="{% static 'home/vendors/revolution/css/settings.css' %}" rel="stylesheet">
+    <link href="{% static 'home/vendors/revolution/css/layers.css' %}" rel="stylesheet">
+    <link href="{% static 'home/vendors/revolution/css/navigation.css' %}" rel="stylesheet">
+
+    <!-- Extra plugin css -->
+    <link href="{% static 'home/vendors/owl-carousel/owl.carousel.min.css' %}" rel="stylesheet">
+    <link href="{% static 'home/vendors/bootstrap-selector/css/bootstrap-select.min.css' %}" rel="stylesheet">
+    <link href="{% static 'home/vendors/vertical-slider/css/jQuery.verticalCarousel.css' %}" rel="stylesheet">
+
+    <link href="{% static 'home/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'home/css/responsive.css' %}" rel="stylesheet">
+    <link href="{% static 'home/css/PagedList.css' %}" rel="stylesheet" />
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <form class="col-lg-4 float-md-right" method="get" action="{% url 'timkiem:ketquatimkiemtintuc' %}">
+            <input type="text" name="q" class="form-control float-md-left" placeholder="Tìm kiếm" aria-label="Search" style="width:88%;" value="{{request.GET.q}}">
+            <span class="float-md-right">
+                <button class="btn btn-danger" type="submit"><i class="icon-magnifier icons"></i></button>
+            </span>
+        </form>
+    </div>
+    <section class="categories_product_main p_80">
+        <div class="container">
+
+            <div class="categories_main_inner">
+                <div class="row row_disable">
+                    <div class="col-lg-12 float-md-right">
+                        <div class="categories_product_area">
+                            <div class="row">
+                                {% for tintuc in TinTucs %}
+                                    <div class="col-lg-12 col-sm-6">
+                                        <a href="{% url 'tintuc:tintuc' tintuc.id %}" style="color: black;">
+                                            <div class="l_product_item" style="margin: 10px 0px; border: none;">
+                                                <div class="col-lg-3 col-sm-6 float-md-left">
+                                                    <div class="l_p_img" style="height:265px;width:100%;">
+                                                        <img src="{{tintuc.CoverImage.url}}" alt="{{tintuc.Title}}" style="height:100%;">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-9 col-sm-6 float-md-right">
+                                                    <div class="l_p_info">
+                                                       <h2>{{tintuc.Title}}</h2>
+                                                        <span>{{tintuc.Date}}</span>
+                                                        <br />
+                                                        <div style="height:50%;">
+                                                            {{tintuc.Short_Body}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <hr  style="width: 100%"/>
+                                {% endfor %}
+                            </div>
+
+                            <!--Phân trang-->
+                            <div style="text-align:center;">
+                                {% if TinTucs.has_other_pages %}
+                                    <ul class="pagination">
+                                        {% if TinTucs.has_previous %}
+                                            <li><a href="?page={{ TinTucs.previous_page_number }}">&laquo;</a></li>
+                                        {% else %}
+                                            <li class="disabled"><span>&laquo;</span></li>
+                                        {% endif %}
+                                        {% for i in TinTucs.paginator.page_range %}
+                                            {% if TinTucs.number == i %}
+                                                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                                            {% else %}
+                                                <li><a href="?page={{ i }}">{{ i }}</a></li>
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% if TinTucs.has_next %}
+                                            <li><a href="?page={{ TinTucs.next_page_number }}">&raquo;</a></li>
+                                        {% else %}
+                                            <li class="disabled"><span>&raquo;</span></li>
+                                        {% endif %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock  %}
+
+{% block jsblock %}
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{% static 'home/js/jquery-3.2.1.min.js' %}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static 'home/js/popper.min.js' %}"></script>
+    <script src="{% static 'home/js/bootstrap.min.js' %}"></script>
+    <!-- Rev slider js -->
+    <script src="{% static 'home/vendors/revolution/js/jquery.themepunch.tools.min.js' %}"></script>
+    <script src="{% static 'home/vendors/revolution/js/jquery.themepunch.revolution.min.js' %}"></script>
+    <script src="{% static 'home/vendors/revolution/js/extensions/revolution.extension.actions.min.js' %}"></script>
+    <script src="{% static 'home/vendors/revolution/js/extensions/revolution.extension.video.min.js' %}"></script>
+    <script src="{% static 'home/vendors/revolution/js/extensions/revolution.extension.slideanims.min.js' %}"></script>
+    <script src="{% static 'home/vendors/revolution/js/extensions/revolution.extension.layeranimation.min.js' %}"></script>
+    <script src="{% static 'home/vendors/revolution/js/extensions/revolution.extension.navigation.min.js' %}"></script>
+    <script src="{% static 'home/vendors/revolution/js/extensions/revolution.extension.slideanims.min.js' %}"></script>
+    <!-- Extra plugin css -->
+    <script src="{% static 'home/vendors/counterup/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'home/vendors/counterup/jquery.counterup.min.js' %}"></script>
+    <script src="{% static 'home/vendors/owl-carousel/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'home/vendors/bootstrap-selector/js/bootstrap-select.min.js' %}"></script>
+    <script src="{% static 'home/vendors/image-dropdown/jquery.dd.min.js' %}"></script>
+    <script src="{% static 'home/js/smoothscroll.js' %}"></script>
+    <script src="{% static 'home/vendors/isotope/imagesloaded.pkgd.min.js' %}"></script>
+    <script src="{% static 'home/vendors/isotope/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'home/vendors/magnify-popup/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'home/vendors/vertical-slider/js/jQuery.verticalCarousel.js' %}"></script>
+    <script src="{% static 'home/vendors/jquery-ui/jquery-ui.js' %}"></script>
+    <script src="{% static 'home/js/theme.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends 'quanly/main.html' %}
+{% load humanize %}
+{% block main %}
+<div class="content">
+    {% include 'quanly/inc/topbar.html' %}
+       <!-- END: Top Bar -->
+                <div class="intro-y flex items-center mt-8">
+                    <h2 class="text-lg font-medium mr-auto">
+                       {{ title }}
+                    </h2>
+                </div>
+        <!-- BEGIN: Form Layout -->
+                <div class="grid grid-cols-12 gap-6 mt-5" style="background: white">
+                    <div class="intro-y col-span-12 lg:col-span-6">
+                        <div class="intro-y box p-5">
+                            {% include 'quanly/page/mang/sua.html' %}
+                        </div>
+                    </div>
+                    <!----Ben phải----->
+                    <div class="intro-x col-span-12 lg:col-span-6">
+                        <div class="intro-y box p-5">
+                            <table class="table table-report -mt-2" id="show">
+                                    <thead>
+                                        <tr>
+                                            <th class="whitespace-no-wrap">Nhà mạng</th>
+                                            <th class="text-center whitespace-no-wrap">Tác vụ</th>
+                                        </tr>
+                                    </thead>
+                                    {%  for d in mang|dictsortreversed:'id' %}
+                                    <tbody>
+                                        <tr class="intro-x">
+                                            <td>
+                                                <a data-target="{{ d.id }}" class="font-medium whitespace-no-wrap">{{ d.title }}</a>
+                                            </td>
+                                            <td class="table-report__action w-56">
+                                                <div class="flex justify-center items-center">
+                                                    <a class="flex items-center mr-3 edit" data-id="{{ d.id }}"> <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Sửa </a>
+                                                    <a class="flex items-center text-theme-6" href="{% url 'quantri:xoa-mang' d.id %}" target="_blank"> <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Xoá </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                    {% endfor %}
+                                </table>
+                        </div>
+                    </div>
+</div>
+        <!-- END: Form Layout -->
+</div>
+  <script
+  src="https://code.jquery.com/jquery-1.12.4.min.js"
+  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+  crossorigin="anonymous">
+     </script>
+<script>
+    $(document).ready(function () {
+        var csrfToken = $("input[name=csrfmiddlewaretoken]").val();
+        $("#dang-bai").on('click','#btn_dang_bai',function() {
+            var serializedData = $("#dang-bai").serialize();
+            $.ajax({
+                url : '/quantri/mang/them/',
+                data : serializedData,
+                type : 'post',
+                success : function (data) {
+                    $("#show").append('<tbody><tr class="intro-x"><td><a href="/"target="_blank" class="font-medium whitespace-no-wrap">' + data.mang.title + '</a></td><td class="table-report__action w-56"><div class="flex justify-center items-center"><a class="flex items-center mr-3 edit" data-id="' + data.mang.id + '"> <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Sửa </a><a class="flex items-center text-theme-6"href="/"target="_blank"><i data-feather="trash-2" class="w-4 h-4 mr-1"></i>Xoá</a> </div></td></tr></tbody>')
+                },
+            })
+            $("#dang-bai")[0].reset();
+        })
+
+        // update
+        $("#show").on('click','.edit',function() {
+              var btn = $(this);  // <-- HERE
+              console.log("form submitted!") ; // sanity check
+              $.ajax({
+                url: '/quantri/mang/them/' + btn.attr("data-id"),  // <-- AND HERE
+                data:{
+                    csrfmiddlewaretoken: csrfToken,
+                    id: btn.attr("data-id")
+                },
+                  dataType:'json',
+                  type: 'post',
+                success: function (data) {
+                  $(".content #dang-bai").html(data.html);
+                }
+              });
+        });
+    })
+</script>
+{% endblock %}

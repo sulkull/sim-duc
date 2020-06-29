@@ -1,0 +1,15 @@
+{% load static %}
+<style>
+    .add_cart_btn {
+        background: none;
+        border: none;
+    }
+</style>
+
+<form method="post" action="{% url 'giohang:delete' %}" class="form">
+    {% csrf_token %}
+    <input type="hidden" name="product_id" value="{{sanpham.id}}" />
+    <button type="submit" class="add_cart_btn">
+        <i class="fa fa-close fa-2x"></i>
+    </button>
+</form>

@@ -1,0 +1,20 @@
+{% load static %}
+<style>
+    button{
+        clear: both;
+        background: None;
+        color: black;
+        border: None;
+    }
+    button a p{
+        text-decoration: underline;
+    }
+</style>
+
+<form method="post" action="{% url 'giohang:deleteall' %}" class="form">
+    {% csrf_token %}
+    <input type="hidden" name="product_id" value="{{sanpham.id}}" />
+    <button type="submit">
+        <a><p>Xóa tất cả sản phẩm</p></a>
+    </button>
+</form>

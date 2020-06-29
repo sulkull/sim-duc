@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    Thông tin tài khoản
+{% endblock %}
+
+{% block index %}
+{% load static %}
+
+<article>
+    <h1 style="text-align:center;">Thông tin tài khoản</h1>
+    <form class="form-horizontal" method="post" action="">
+        {% csrf_token %}
+        <hr />
+        <table>
+            <tr>
+                <th>
+                    <label for="{{ form.firstname.id_for_label }}">Họ: </label>
+                </th>
+                <td >
+                    {{ form.firstname }}
+                    {{ form.errors.firstname}}
+                </td>
+            </tr>
+             <tr>
+                 <th >
+                       <label for="{{ form.lastname.id_for_label }}">Tên: </label>
+                    </th>
+                    <td>
+                        {{ form.lastname }}
+                        {{ form.errors.lastname}}
+                    </td>
+             </tr>
+            <tr>
+                <th>
+                    <label for="{{ form.email.id_for_label }}">Email: </label>
+                </th>
+                <td>
+                    {{ form.email }}
+                    {{ form.errors.email}}
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+                    <label for="{{ form.ngaysinh.id_for_label }}">Ngày sinh: </label>
+                </th>
+                <td>
+                    {{ form.ngaysinh }}
+                    {{ form.errors.ngaysinh}}
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label for="{{ form.gioitinh.id_for_label }}">Giới tính: </label>
+                </th>
+                <td>
+                    {{ form.gioitinh }}
+                    {% if user.GioiTinh == 0 %} checked='checked' {% endif %}
+                    {{ form.errors.gioitinh}}
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label for="{{ form.sdt.id_for_label }}">Số điện thoại : </label>
+                </th>
+                <td>
+                    {{ form.sdt }}
+                    {{ form.errors.sdt}}
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label for="{{ form.diachi.id_for_label }}">Địa chỉ : </label>
+                </th>
+                <td>
+                    {{ form.diachi }}
+                    {{ form.errors.diachi}}
+                </td>
+            </tr>
+            <tr>
+                <th>
+
+                </th>
+                <td>
+                    <input type="submit" value="Cập nhật" class="btn btn-primary" style="margin-left:50px; "/>
+                    <a href="{% url 'user:doimatkhau'%}" role="button" class="btn btn-success" style="margin-left:40px; color: white;">Đổi mật khẩu</a>
+                </td>
+            </tr>
+        </table>
+    </form>
+    </article>
+<style>
+    .errorlist {
+        list-style-type: none;
+        margin: 0;
+        padding: 10px;
+    }
+    .errorlist li {
+        color: red;
+    }
+</style>
+{% endblock  %}
+
+

@@ -1,0 +1,11 @@
+<form id="dang-bai" action="" data-url="" method="post">
+    {% csrf_token %}
+    <div id ="cl_edit">
+        <label>Tên nhà mạng</label>
+             {{ form.title }}
+            {{ form.title.errors }}
+    </div>
+    <div class="text-left mt-5">
+        <button type="button" id="btn_dang_bai" class="button w-24 bg-theme-1 text-white">Cập nhật</button>
+    </div>
+</form>

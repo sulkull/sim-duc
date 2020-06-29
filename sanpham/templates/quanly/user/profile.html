@@ -1,0 +1,128 @@
+{% extends 'quanly/main.html' %}
+{% load static %}
+{% block main %}
+<div class="content">
+                {% include 'quanly/inc/topbar.html' %}
+                <div class="intro-y flex items-center mt-8">
+                    <h2 class="text-lg font-medium mr-auto">
+                        Update Profile
+                    </h2>
+                </div>
+                <div class="grid grid-cols-12 gap-6">
+                    <!-- BEGIN: Profile Menu -->
+                    <div class="col-span-12 lg:col-span-4 xxl:col-span-3 flex lg:block flex-col-reverse">
+                        <div class="intro-y box mt-5">
+                            <div class="relative flex items-center p-5">
+                                <div class="w-12 h-12 image-fit">
+                                    <img alt="" class="rounded-full" src="{{ request.user.avatar.url }}">
+                                </div>
+                                <div class="ml-4 mr-auto">
+                                    <div class="font-medium text-base">{{ request.user.HoTen }} </div>
+                                    <div class="text-gray-600">{{ request.user.email }}</div>
+                                </div>
+                            </div>
+                            <div class="p-5 border-t border-gray-200">
+                                <a class="flex items-center text-theme-1 font-medium" href="#"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity w-4 h-4 mr-2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                                </svg>Thông tin tài khoản </a>
+                                <a class="flex items-center mt-5" href="{% url 'taikhoan:doimatkhau' %}"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-lock w-4 h-4 mr-2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg> Đổi mật khẩu</a>
+                                <a class="flex items-center mt-5" href="#"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings w-4 h-4 mr-2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                                </svg> Cài đặt tài khoản </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END: Profile Menu -->
+                    <div class="col-span-12 lg:col-span-8 xxl:col-span-9">
+                        <!-- BEGIN: Display Information -->
+                        <div class="intro-y box lg:mt-5">
+                            <div class="flex items-center p-5 border-b border-gray-200">
+                                <h2 class="font-medium text-base mr-auto">
+                                   Thông tin tài khoản
+                                </h2>
+                            </div>
+                            <div class="p-5">
+                                <div class="grid grid-cols-12 gap-5">
+                                    <div class="col-span-12 xl:col-span-4">
+                                        <div class="border border-gray-200 rounded-md p-5">
+                                            <div class="w-40 h-40 relative image-fit cursor-pointer zoom-in mx-auto">
+                                                <img class="rounded-md" alt="Midone Tailwind HTML Admin Template" src="{{ request.user.avatar.url }}">
+                                                <div class="tooltip w-5 h-5 flex items-center justify-center absolute rounded-full text-white bg-theme-6 right-0 top-0 -mr-2 -mt-2 tooltipstered"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x w-4 h-4"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> </div>
+                                            </div>
+                                            <div class="w-40 mx-auto cursor-pointer relative mt-5">
+                                                 <form action="{% url 'taikhoan:thongtintaikhoan' %}" method="post" id="avatars" enctype="multipart/form-data">
+                                                      {% csrf_token %}
+                                                     <input type="file" accept="image/*" name="avatar" id="id_avatar" class="w-full h-full top-0 left-0 absolute opacity-0">
+                                                     <button type="ok" name="avatar" class="button w-full bg-theme-1 text-white">Hình đại diện</button>
+                                                 </form>
+                                                <script>
+                                                   document.getElementById("id_avatar").onchange = function() {
+                                                   document.getElementById("avatars").submit();
+                                                  };
+                                                </script>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-span-12 xl:col-span-8">
+                                        <div class="row">
+                                            <div class="col-md-12 m-t-40 margin_top">
+                                                <div class="profile_detail">
+                                                <form action="{% url 'taikhoan:thongtintaikhoan' %}" method="POST" name="myform">
+                                                                        {% csrf_token %}
+                                                                        <div class="form-row">
+                                                                            <div class="form-group col-md-6">
+                                                                                {{form.firstname.label_tag}}
+                                                                                {{form.firstname}}
+                                                                                {{ form.errors.firstname}}
+                                                                            </div>
+                                                                            <div class="form-group col-md-6">
+                                                                                {{form.lastname.label_tag}}
+                                                                                {{form.lastname}}
+                                                                                 {{ form.errors.lastname}}
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-row">
+                                                                            <div class="form-group col-md-6">
+                                                                                {{form.email.label_tag}}
+                                                                                {{form.email}}
+                                                                               {{form.errors.email}}
+                                                                            </div>
+                                                                            <div class="form-group col-md-6">
+                                                                                {{form.sdt.label_tag}}
+                                                                                {{form.sdt}}
+                                                                                {{ form.errors.sdt}}
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-row">
+                                                                            <div class="form-group col-md-6">
+                                                                                {{form.ngaysinh.label_tag}}
+                                                                                {{form.ngaysinh}}
+                                                                                 {{ form.errors.ngaysinh}}
+                                                                            </div>
+                                                                            <div class="form-group col-md-6">
+                                                                                {{form.gioitinh.label_tag}}
+                                                                                {{form.gioitinh}}
+                                                                                {{ form.errors.gioitinh}}
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-row">
+                                                                             <div class="form-group col-md-12">
+                                                                                {{form.diachi.label_tag}}
+                                                                                {{form.diachi}}
+                                                                                {{ form.errors.diachi}}
+                                                                            </div>
+                                                                        </div>
+                                                                        <button type="submit" name="ttcn" class="button w-20 bg-theme-1 text-white ml-auto">Cập nhật</button>
+                                                                     </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        <!-- END: Personal Information -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+</div>
+<link rel="stylesheet" href="{% static 'css/from-fix.css' %}">
+{% endblock %}

@@ -1,0 +1,34 @@
+{% load humanize %}
+{% autoescape off %}
+    Bạn có một đơn đặt hàng mới,
+    <p>Người đặt: {{User.HoTen}}</p>
+    <p>Địa chỉ: {{User.DiaChi}}</p>
+    <p>Số điện thoại: {{User.SDT}}</p>
+    <p>Thông tin đơn hóa đơn:</p>
+    <table class="table" style="text-align: center;">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tên sản phẩm</th>
+                <th scope="col">Giá</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in Ctghs %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{item.SP}}</td>
+                    <td>{{item.DonGia|intcomma }}₫</td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="2"></td>
+                <td>Phí vận chuyển: Miễn phí</td>
+            </tr>
+            <tr>
+                <td colspan="2"></td>
+                <td>Tổng tiền: {{Cart_obj.TongTien|intcomma }}₫</td>
+            </tr>
+        </tbody>
+    </table>
+{% endautoescape %}

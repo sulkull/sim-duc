@@ -1,0 +1,147 @@
+<div class="mobile-menu md:hidden">
+            <div class="mobile-menu-bar">
+                <a href="#" class="flex mr-auto">
+                    <img alt="Midone Tailwind HTML Admin Template" class="w-6" src="/static/logo.svg">
+                </a>
+                <a href="javascript:" id="mobile-menu-toggler">
+                    <i data-feather="bar-chart-2" class="w-8 h-8 text-white transform -rotate-90"></i> </a>
+            </div>
+            <ul class="border-t border-theme-24 py-5 hidden">
+                    <li>
+                        <a href="{% url 'quantri:main' %}" class="menu menu--{{ class.main }}">
+                            <div class="menu__icon"> <i data-feather="home"></i> </div>
+                            <div class="menu__title"> Bảng điều khiển </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'quantri:danh-sach-don-hang' %}" class="menu menu--{{ class.main }}">
+                            <div class="menu__icon"> <i data-feather="credit-card"></i> </div>
+                            <div class="menu__title"> Đơn hàng</div>
+                        </a>
+                    </li>
+
+                     {% if request.user.is_superuser %}
+                        <!---Kiem tra quyen truy cap-->
+                    <li>
+                        <a href="javascript:" class="menu">
+                            <div class="menu__icon"> <i data-feather="file-plus"></i> </div>
+                            <div class="menu__title">Quản lý sim <i data-feather="chevron-down" class="menu__sub-icon"></i> </div>
+                        </a>
+                        <ul class="">
+                            <li>
+                                <a href="{% url 'quantri:Them-san-pham' %}" class="menu menu--{{ class_tp }}">
+                                    <div class="menu__icon"> <i data-feather="activity"></i> </div>
+                                    <div class="menu__title">Thêm sim mới</div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'quantri:Danh-sach-san-pham' %}" class="menu menu--{{ class_ds }}">
+                                    <div class="menu__icon"> <i data-feather="activity"></i> </div>
+                                    <div class="menu__title">Danh sách sim </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:" class="menu">
+                            <div class="menu__icon"> <i data-feather="credit-card"></i> </div>
+                            <div class="menu__title">Quản lý tin tức <i data-feather="chevron-down" class="menu__sub-icon"></i> </div>
+                        </a>
+                        <ul class="">
+                            <li>
+                                <a href="{% url 'quantri:danh-sach-loai-tin-tuc' %}" class="menu menu--{{ class_tp }}">
+                                    <div class="menu__icon"> <i data-feather="activity"></i> </div>
+                                    <div class="menu__title">Danh mục tin tức</div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'quantri:danh-sach-tin-tuc' %}" class="menu menu--{{ class_ds }}">
+                                    <div class="menu__icon"> <i data-feather="activity"></i> </div>
+                                    <div class="menu__title">Tin tức</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {% else %}
+
+                    {% endif %}
+
+                <!--------hoa don-------->
+                    {% if request.user.is_superuser %}
+                        <!---Kiem tra quyen truy cap-->
+                    <li>
+                        <a href="javascript:" class="menu">
+                            <div class="menu__icon"> <i data-feather="file-text"></i> </div>
+                            <div class="menu__title"> Quản lý danh mục <i data-feather="chevron-down" class="menu__sub-icon"></i> </div>
+                        </a>
+                        <ul class="">
+                            <li>
+                                <a href="{% url 'quantri:Them-mang' %}" class="menu menu--{{ class_tp }}">
+                                    <div class="menu__icon"> <i data-feather="activity"></i> </div>
+                                    <div class="menu__title">  Danh sách nhà mạng</div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'quantri:Them-loai' %}" class="menu menu--{{ class_ds }}">
+                                    <div class="menu__icon"> <i data-feather="activity"></i> </div>
+                                    <div class="menu__title"> Danh mục loại sim </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {% else %}
+
+                    {% endif %}
+                <!----------->
+                    <li class="side-nav__devider my-6"></li>
+                    <li>
+                        <a href="javascript:" class="menu menu--{{ class.profile }}">
+                            <div class="menu__icon"> <i data-feather="trello"></i> </div>
+                            <div class="menu__title">Tài khoản <i data-feather="chevron-down" class="menu__sub-icon"></i> </div>
+                        </a>
+                        <ul class="">
+                            <li>
+                                <a href="/" class="menu menu--{{ class.profile }}">
+                                    <div class="menu__icon"> <i data-feather="activity"></i> </div>
+                                    <div class="menu__title"> Thông tin cá nhân </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/" class="menu">
+                                    <div class="menu__icon"> <i data-feather="activity"></i> </div>
+                                    <div class="menu__title"> Đổi mật khẩu </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="side-nav__devider my-6"></li>
+
+                    {% if request.user.is_superuser %}
+                        <!---Kiem tra quyen truy cap-->
+                    <li>
+                        <a href="javascript:" class="menu">
+                            <div class="menu__icon"> <i data-feather="inbox"></i> </div>
+                            <div class="menu__title"> Cấu hình <i data-feather="chevron-down" class="menu__sub-icon"></i> </div>
+                        </a>
+                        <ul class="">
+                            <li>
+                                <a href="{%  url 'quantri:cau-hinh-trang' %}" class="menu menu--{{ class_tp }}">
+                                    <div class="menu__icon"> <i data-feather="activity"></i> </div>
+                                    <div class="menu__title"> Cấu hình trang </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{%  url 'quantri:cau-hinh-seo' %}" class="menu menu--{{ class_ds }}">
+                                    <div class="menu__icon"> <i data-feather="activity"></i> </div>
+                                    <div class="menu__title"> Cấu hình SEO </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {% else %}
+                    {% endif %}
+
+                </ul>
+        </div>

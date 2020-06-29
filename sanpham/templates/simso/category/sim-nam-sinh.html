@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Danh sách sim theo năm sinh {{ sns1.title }}
+{% endblock %}
+
+{% block index %}
+
+{% load static %}
+{% load humanize %}
+
+    <article>
+        <!----from tim kiem--->
+        {% include 'tim-kiem.html' %}
+        <!--- end tim kiem-->
+
+        <center><img alt="Loading" src="/static/images/filter-loader.gif.pagespeed.ce.TKfctFe3G_.gif" name="loading_div" width="95" height="15" border="0" id="loading_div" style="display:none">
+        </center>
+        <!--<a class="desktop-hide" href="/sim-dep-tra-gop"><img style="width:100%;padding-top:5px" border="0" alt="Sim số đẹp" src="//static.simthanglong.vn/images/sim-dep-tra-gop-0-phan-tram.jpg"></a>-->
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tbody>
+                <tr>
+                    <td valign="middle">
+                        <h1>Danh sách sim theo năm sinh {{ sns1.title }}</h1>
+                        <!--<label><a class="criteria" style=" color: #288ad6; " href="javascript:tragopFilter()"><i id="active-tragop" class="ic-checkbox"></i>Hỗ trợ trả góp</a></label>-->
+                    </td>
+                    <td align="left" valign="middle"><img alt="Loading" src="/static/images/filter-loader.gif.pagespeed.ce.TKfctFe3G_.gif" name="img_filter" width="95" height="15" border="0" id="img_filter" style="display:none">
+                    </td>
+                    <td width="127" align="right" valign="middle"><strong style=" color: red; ">1000 sim</strong> </td>
+                </tr>
+            </tbody>
+        </table>
+      {% include 'includes/timkiem/timkiem-nangcao.html' %}
+        <table class="tblsim-res2" cellspacing="1">
+            <thead>
+                <tr class="hide480" style="display:none">
+                    <th class="hide480 tdw35" height="25" background="images/Nx25xgrid_bg.gif.pagespeed.ic.EfN4oIAt4r.webp"><span class="grid_title">STT</span>
+                    </th>
+                    <th class="tdw140" background="images/xgrid_bg.gif.pagespeed.ic.HP4k-6Oexi.webp"><span class="grid_title">Số Sim</span>
+                    </th>
+                    <th class="tdw140" background="images/xgrid_bg.gif.pagespeed.ic.HP4k-6Oexi.webp"><span class="grid_title">Giá bán</span>
+                    </th>
+                    <th class="tdw120 hide480" background="images/xgrid_bg.gif.pagespeed.ic.HP4k-6Oexi.webp"><span class="grid_title">Mạng di động</span>
+                    </th>
+                    <th class="hide480 hide555 tdw90" background="images/xgrid_bg.gif.pagespeed.ic.HP4k-6Oexi.webp"><span class="grid_title">Loại sim</span>
+                    </th>
+                    <th class=" tdw85" valign="middle" align="center" background="images/xgrid_bg.gif.pagespeed.ic.HP4k-6Oexi.webp"><span class="grid_title">Mua sim</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+            </tbody>
+        </table>
+    <div id="pagination-wrapper"></div>
+    </article>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script>
+    var tableData = [
+        {% for sim in sanpham %}
+            {
+                'sosim': '{{ sim.SoSim }}',
+                'last_name': '{{ sim.Mang }}',
+                'stt': '{{ forloop.counter }}',
+                'slug': '{{ sim.slug }}',
+                'gia': '{{ sim.Gia|intcomma }}₫',
+                'mang': '{{ sim.Mang }}',
+                'loai': '{% for ls in sim.LoaiSims.all|slice:"1" %}{{ ls.title}}{% endfor %}',
+                'mua': '{% url 'sanpham:sanpham' sim.slug %}',
+            },
+        {% endfor %}
+    ]
+
+    </script>
+<script src="/static/js/js/namsinh.js"></script>
+{% endblock %}

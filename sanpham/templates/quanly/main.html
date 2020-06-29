@@ -1,0 +1,18 @@
+{% extends 'quanly/base.html' %}
+{% load static %}
+{% block content %}
+    <body class="app">
+        <!-- BEGIN: Mobile Menu -->
+        {% include 'quanly/inc/menu-mobile.html' %}
+        <!-- END: Mobile Menu -->
+        <div class="flex">
+            <!-- BEGIN: Side Menu -->
+            {% include 'quanly/inc/menu-pc.html' %}
+            <!-- END: Side Menu -->
+            <!-- BEGIN: Content -->
+            {% block main %}
+            {% endblock %}
+            <!-- END: Content -->
+        </div>
+
+{% endblock %}

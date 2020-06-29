@@ -1,0 +1,91 @@
+{% load static %}
+{% static "" as baseUrl %}
+{% load setting %}
+{% setting as st %}
+{% for st in st %}
+<footer>
+            <div style="text-align: center;">
+                <div class='bch' style=" columns: 455px 2; ">
+                    <div>
+                        <h3>Hệ thống <strong>23</strong> cửa hàng trên toàn quốc</h3>
+                        <h3>Hà Nội</h3>
+                        <ul>
+                            <li>22 Ô Chợ Dừa, Đống Đa, Hà Nội.</li>
+                            <li>1263 Giải Phóng, Hoàng Mai, Hà Nội.</li>
+                        </ul>
+                        <h3>TP. Hồ Chí Minh</h3>
+                        <ul>
+                            <li>538 Nguyễn Thị Minh Khai, Phường 2, Quận 3.</li>
+                            <li>84 Trương Vĩnh Ký, Tân Thành, Quận Tân Phú.</li>
+                            <li>372 Nguyễn Công Trứ, Phường Cầu Ông Lãnh, Quận 1.</li>
+                        </ul>
+                        <h3>Tỉnh thành khác</h3>
+                        <ul>
+                            <li>Số 301 Nguyễn Văn Linh, Thanh Khê, TP.<strong>Đà Nẵng</strong>
+                            </li>
+                            <li>Số 124 ngã tư Quán Toan, Hồng Bàng, <strong>Hải Phòng</strong>
+                            </li>
+                            <li>Số 76-78 Tòa nhà BIDV, vòng xuyến Văn Giang, <strong>Hưng Yên</strong>.</li>
+                        </ul>
+                        <input type="checkbox" id="smch" class="hide">
+                        <label for="smch">
+                            <p>Xem thêm 14 cửa hàng khác...</p>
+                        </label>
+                        <ul class="hide">
+                            <li>Trần Hưng Đạo, TP <strong>Hải Dương</strong>.</li>
+                            <li>Số 257 Quang Trung, Phường Phan Thiết , TP <strong>Tuyên Quang</strong>.</li>
+                            <li>Số 104 Trần Hưng Đạo, Phường Tiền An, TP <strong>Bắc Ninh</strong>.</li>
+                            <li>Lê Lợi, Vĩnh Trại, TP <strong>Lạng Sơn</strong>.</li>
+                            <li>Số 150, Đường Cốc Lếu, Phường Cốc Lếu, TP <strong>Lào Cai</strong>.</li>
+                            <li>Số 5D, ngõ 46, Nguyễn Duy Trinh, Khối Văn Tiến, Phường Hưng Dũng, <strong>Tp Vinh, Nghệ An</strong>.</li>
+                            <li>82 Hải Thượng Lãn Ông, Đông Vệ, Tp <strong>Thanh Hóa</strong>.</li>
+                            <li>246 Thanh Hưng, thị trấn Đồi Ngô, Lục Nam, <strong>Bắc Giang</strong>.</li>
+                            <li>Số 6 2/205 Nguyễn Văn Cừ, Nam Bình, Tp <strong>Ninh Bình</strong> </li>
+                            <li>53 Vũ Ngọc Phan, Hạ Long, Tp <strong>Nam Định</strong>.</li>
+                            <li>36 Phan Đình Phùng, Phan Đình Phùng, Tp <strong>Nam Định</strong>.</li>
+                            <li>157 Mai Thúc Loan, Phú Hậu, Thành phố Huế, <strong>Thừa Thiên Huế</strong>.</li>
+                            <li>188 Quang Trung, Phường Quang Trung, Tp <strong>Thái Nguyên</strong>.</li>
+                            <li>224 Đường Lương Ngọc Quyến, TP <strong>Thái Nguyên</strong>.</li>
+                            <li>Số 66 đường B4, KDC Hưng Phú 1, Phường Hưng Phú, Quận Cái Răng, <strong>Cần Thơ</strong>.</li>
+                        </ul>
+                    </div>
+                    <div style="height: 380px;" class="fb-page" data-href="https://www.facebook.com/{{ st.chatfb }}" data-width="500" data-hide-cover="false" adapt_container_width="true" data-show-facepile="true"> </div>
+                </div>
+                </br>
+                <!--42-->
+                <div class="hotline_footer">
+                    <div>
+                        <div>Chat tư vấn
+                            <br><strong class="hotline-right"><a href="http://zalo.me/{{ st.zalo }}" style="background: #0C599C;"><img style="width: 41px; border-radius: 126px; position: absolute; left: 0px; top: 0; " src="/static/home/img/zalo.png" alt="Chat với Sim Thăng Long"> &emsp;Chat tư vấn</a></strong>
+                        </div>
+                        <div>Góp ý, phản ánh
+                            <br><strong class="hotline-right"><a href="tel:{{ st.sdt1 }}"> <div class="phone"><span>&nbsp;</span></div><div></div>  {{ st.sdt1 }} </a></strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="noi-dung-chan">
+                    {{ st.footer|safe}}
+            </div>
+            <div class='bch' style=" text-align: center; "><a href="/">Tìm kiếm</a> | <a href="/">Giới thiệu</a> | <a href="bai-viet/65/cach-mua-sim-va-thanh-toan-2.html">Mua hàng &amp; Thanh toán</a> | <a href="tin-tuc/2/kien-thuc-sim-so.html">Kiến thức sim</a> | <a href="bai-viet/1900/dieu-khoan-va-dieu-kien-giao-dich-tai-sim-thang-long.html">Điều khoản &amp; điều kiện</a> | <a href="bai-viet/3050/chinh-sach-doi-tra.html">Chính sách đổi trả</a> | <a href="bai-viet/1899/chinh-sach-bao-mat-thong-tin-khach-hang-tai-sim-thang-long.html">Chính sách bảo mật</a> | <a href="sim-so-dep/10/lien-he.html">Liên hệ</a> <a href="http://www.dmca.com/Protection/Status.aspx?ID=8ad4a5a0-ad92-4ce0-b32a-14823a697193" title="DMCA.com Protection Status" class="dmca-badge">&emsp;&emsp;<img src="https://images.dmca.com/Badges/dmca-badge-w100-5x1-02.png?ID=8ad4a5a0-ad92-4ce0-b32a-14823a697193" alt="DMCA.com Protection Status"></a> </div>
+    </div>
+    </footer>
+    </div>
+    <br>
+    <br>
+
+    <script type="text/javascript">
+        document.body.style.backgroundImage = "url('static/home/img/bg_colorful.jpg')"; //var elem = document.createElement("img"); //elem.setAttribute("src", "//static.simthanglong.vn/images/km26062019.jpg"); //elem.setAttribute("alt", "sim thăng long"); //document.getElementById("ads-left").appendChild(elem); //elem = document.createElement("img"); //elem.setAttribute("src", "//static.simthanglong.vn/images/km26062019.jpg"); //elem.setAttribute("alt", "sim thăng long"); //document.getElementById("ads-right").appendChild(elem);
+    </script>
+    <!---->
+    <div class="hotlinebottom" id="hlbt">
+        <a class="hotline" href="tel:0969641652">
+            <div id="phone"><span>&nbsp;</span>
+            </div>
+            <div></div> {{ st.sdt2 }} </a>
+    </div>
+{% endfor %}
+<script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script>
+<script defer type="text/javascript" src="/static/home/loadpage.js"></script>
+<script defer type="text/javascript" src="{% static 'home/script.min.js' %}"></script>
+<style>.photo-grid.clearfix ul.clearfix.sim-moi li#sim-moi{display: none;}#loadMore{color:green;cursor:pointer}#loadMore:hover{color:#000}#showLess{color:red;cursor:pointer}#showLess:hover{color:#000}</style>
+

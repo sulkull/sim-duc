@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Xác thực tài khoản
+{% endblock %}
+
+
+{% block index %}
+    <article style="text-align: center;">
+
+        <h1>Xác thực tài khoản</h1>
+        <p>Vui lòng chọn một trong hai phương thức dưới đây để xác thực tài khoản.</p>
+
+    <form class="track_form row" method="POST" action="." style="text-align: center">
+        {% csrf_token %}
+        <table style="margin:auto">
+            <tbody>
+                <tr>
+                    <th><label for="id_sdt">Xác thực bằng số điện thoại.</label></th>
+                    <td><input type="radio" name="verify" value="sdt" id="id_sdt" checked></td>
+                </tr>
+                <tr>
+                    <th><label for="id_email">Xác thực bằng Email.</label></th>
+                    <td><input type="radio" name="verify" value="email" id="id_email" checked></td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="submit" value="submit" class="btn btn-primary">Xác thực</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+
+    </article>
+{% endblock  %}
+

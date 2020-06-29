@@ -1,0 +1,16 @@
+{%  for d in mang %}
+    <tbody>
+    <tr class="intro-x">
+        <td>
+            <a data-target="{{ d.id }}" class="font-medium whitespace-no-wrap">{{ d.title }}</a>
+        </td>
+        <td class="table-report__action w-56">
+            <div class="flex justify-center items-center">
+                <a class="flex items-center mr-3 edit" data-id="{{ d.id }}"> <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Sửa </a>
+                <a class="flex items-center text-theme-6" href="/" target="_blank"> <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Xoá </a>
+            </div>
+        </td>
+    </tr>
+
+    </tbody>
+{% endfor %}

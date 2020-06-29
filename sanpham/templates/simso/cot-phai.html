@@ -1,0 +1,44 @@
+{% load tintuc %}
+{% load setting %}
+
+
+{% setting as stting %}
+{% for st in stting %}
+<div class="list-group mobile-hide"> <a href="javascript:void(0);" class="list-group-item active">Bán hàng online</a>
+                    <div class="contact-right" id="contact-right">
+                        <h3 class="hotline-right"><a href="tel:{{ st.sdt2 }}"> <div class="phone"><span>&nbsp;</span></div><div></div> {{ st.sdt2 }} </a></h3>
+                        <!--<h3 class="hotline-right" ><a href="sms:02466666666"> <div class="phone" style=" font-size: 10px; top: 9px; left: 10px; ">SMS</div><div></div> &nbsp; &nbsp;(024).6666.6666 </a></h3>-->
+                        <h3 class="hotline-right"><a href="http://zalo.me/{{ st.zalo }}" style="background: #0C599C;"><img alt="Chat với Sim Thăng Long" style="width: 41px; border-radius: 126px; position: absolute; left: 0px; top: 0; " src="/static/home/img/zalo.png"> &emsp; Chat </a></h3>
+                        <h3 style="margin-bottom: 5px">Góp ý, khiếu nại:</h3><a href="tel:{{ st.sdt1 }}"><strong style=" color: #005064; font-size: 16px; ">{{ st.sdt1 }}</strong></a>
+                        <br>
+                        <!-- <strong> Làm việc từ 8h =&gt; 20h30</strong><br /> Tất cả các ngày trong tuần<br /> </font><span style="font-size:11px; font-family:Arial, Helvetica, sans-serif; color:#666666"> (Ngoài giờ Quý khách vui lòng<br /> <a href="dat-sim-theo-yeu-cau.html">Đặt mua trên Web</a> hoặc gửi SMS)</span><br /> -->
+                    </div>
+                </div>
+                <div class="list-group"> <a href="javascript:void(0);" class="list-group-item active">Đơn hàng mới</a>
+                    <div class="wgc-right">
+                        <ul style=" list-style: none; padding: 5px; margin: 0; ">
+                            {% for hoadon in hd %}
+                                <li style=" border-bottom: 1px solid #ccc; padding-bottom: 5px; ">
+                                    <h3 style=" margin: 3px; ">{{ hoadon.HoTenNguoiNhan|default:"Người dùng chưa đặt tên" }}</h3>
+                                    <label>&emsp;{% if not hoadon.SDT %} xxxxxxxxx {% else %} {{ hoadon.hidden_phone_number }} {% endif %}</label>
+                                    <br>
+                                    {% if not hoadon.GiaoHang %}
+                                        <label class='stg'> Đã đặt mua </label>
+                                    {% else %}
+                                        <label class='stg' style='background:#4CAF50'>Đã giao hàng</label>
+                                    {% endif %}
+                                     <span>&nbsp;({{ hoadon.NgayDatHang|date:"d-m-y h:i" }})</span> 
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+{% tintuc as tintuc %}
+                <div class="list-group item-tintuc">
+                    <a href="" class="list-group-item active">Tin Tức Mới</a>
+                    {% for tt in tintuc %}
+                        <a class="list-group-item lgit" href="{% url 'tintuc:tintuc' tt.DuongDan %}">{{ tt.TieuDe }}</a> 
+                    {% endfor %}
+                </div>
+
+ {% endfor %}
